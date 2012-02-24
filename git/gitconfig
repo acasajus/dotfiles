@@ -26,6 +26,7 @@
 	df = diff
 	dc = diff --cached
 	last = diff HEAD^
+  dt = difftool
 
 	#log
  	log = log --decorate --graph --date=short
@@ -47,11 +48,14 @@
 [branch]
 	autosetupmerge = true
 [diff]
-#	external = /home/adria/bin/GitMeldDiff.py
+  tool = meld
 	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
 	# instead of a/b/c/d as prefixes for patches
-	mnemonicprefix = true
+  mnemonicprefix = true
+[difftool]
+  prompt = false
 [achievement]
 	upload = false
 [github]
-	user = acasajus
+	user = ${github username}
+	token = ${github token}

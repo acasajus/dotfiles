@@ -1,0 +1,35 @@
+set backspace=2
+au FileType python setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent
+"auto open nerdtree
+if janus#is_plugin_enabled( 'nerdtree' )
+  autocmd vimenter * if !argc() | NERDTree | endif
+endif
+set statusline=%f    "tail of the filename
+set statusline+=%m   "modified?
+set statusline+=%r   "readonly?
+set statusline+=%=
+"add fugitive line to statusbar
+if janus#is_plugin_enabled('fugitive')
+  set statusline+=%{fugitive#statusline()}
+endif
+"syntastic warnings
+if janus#is_plugin_enabled('syntastic')
+  set statusline+=\ %#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+endif
+set statusline+=\ L:%l/%L[%p%%]
+set statusline+=\ C:%v
+set statusline+=\ B:#%n
+
+"Remove trailing spaces
+autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+"Buffergator size
+let g:buffergator_split_size=25
+"Buffergator toggle instead of open
+nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
+nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
+
+"Max textwidth
+set textwidth=140
