@@ -1,0 +1,7 @@
+
+if strridx( hostname(), "cern.ch" ) > -1
+  call janus#disable_plugin( "zoomwin" )
+  call janus#disable_plugin( "buffergator" )
+  call janus#disable_plugin( "tagbar" )
+  call janus#disable_plugin( "snipmate" )
+endif
