@@ -35,7 +35,8 @@ plugins=(rvm git github python ssh-agent)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/adria/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/adria/.rvm/bin
+export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:
+[[ -d $HOME/.rvm/bin ] && export PATH=$PATH:HOME/.rvm/bin
 
 #ssh-forward
 zstyle :omz:plugins:ssh-agent agent-forwarding on
