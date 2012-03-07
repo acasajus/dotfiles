@@ -22,7 +22,7 @@ except:
 
 def getContentHash( path ):
   logging.debug( "Getting contents from %s" % path )
-  pathFile = open( sourcePath )
+  pathFile = open( path )
   data = pathFile.read()
   pathFile.close()
   return ( data,  md5( data ).hexdigest() )
@@ -39,9 +39,10 @@ for module in os.listdir( here ):
     if os.system( modDeploy ) != 0:
       logging.error( "Error executing %s/deploy.py. Exiting" % module )
       sys.exit( 1 )
-    continue
-  #Copyi/link files where they are needed
+  #Copy/link files where they are needed
   for source in os.listdir( modPath ):
+    if source == "deploy.py":
+      continue
     sourcePath = os.path.join( modPath, source )
     logging.info( "Processing %s/%s" % ( module, source ) )
     if not os.path.isfile( sourcePath ):
@@ -49,8 +50,12 @@ for module in os.listdir( here ):
     destPath = os.path.expanduser( os.path.join( "~" , ".%s" % source ) )
     logging.debug( "Destination is %s" % destPath )
     sData, sHash = getContentHash( sourcePath )
-    if os.path.isfile( destPath ):
-      dData, dHash = getContentHash( sourcePath )
+    if os.path.islink( destPath ):
+      if sourcePath == os.readlink( destPath ):
+        logging.info( "Link already set up" )
+        continue
+    elif os.path.isfile( destPath ):
+      dData, dHash = getContentHash( destPath )
       if sHash == dHash or dotState.get( sHash, "" ) == dHash :
         logging.info( "%s/%s already in sync" % ( module, source ) )
         continue
@@ -65,12 +70,16 @@ for module in os.listdir( here ):
         value = raw_input( "Value for %s -> %s? " % ( destPath, dataPiece ) )
         dData = dData.replace( "${%s}" % dataPiece, value )
       dHash = md5( dData ).hexdigest()
-    if os.path.exists( destPath ):
-      os.unlink( destPath )
-    destFile = open( destPath, "w" )
-    destFile.write( dData )
-    destFile.close()
-    dotState[ sHash ] = dHash
+      destFile = open( destPath, "w" )
+      destFile.write( dData )
+      destFile.close()
+      dotState[ sHash ] = dHash
+    else:
+      logging.info( "Linking %s <- %s" % ( sourcePath, destPath ) )
+      if os.path.exists( destPath ):
+        os.unlink( destPath )
+      os.symlink( sourcePath, destPath )
+
 
 fd = open( stateFile, "w" )
 pickle.dump( dotState, fd )
