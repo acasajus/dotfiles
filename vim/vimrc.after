@@ -33,3 +33,7 @@ nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 
 "Max textwidth
 set textwidth=140
+
+"set proper directory for swaps
+set directory=.,$TEMP
+set backupdir=.,~/.vim/backups
