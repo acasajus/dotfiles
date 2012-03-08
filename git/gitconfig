@@ -57,5 +57,5 @@
 [achievement]
 	upload = false
 [github]
-	user = ${github username}
-	token = ${github token}
+	user = %{github username}
+	token = %{github token}
