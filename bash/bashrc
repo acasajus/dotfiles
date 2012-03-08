@@ -1,0 +1,23 @@
+[ -f "$HOME/.profile" ] && source $HOME/.profile
+
+RESET="\[\017\]"
+NORMAL="\[\033[0m\]"
+RED="\[\033[31;1m\]"
+GREEN="\[\033[32;1m\]"
+YELLOW="\[\033[33;1m\]"
+BLUE="\[\033[34;1m\]"
+VIOLET="\[\033[35;1m\]"
+LIGHTBLUE="\[\033[36;1m\]"
+WHITE="\[\033[37;1m\]"
+
+if [ "`id -u`" == "0" ]; then
+  export PS1="${RESET}[${RED}\u@\h${NORMAL} \w]\$ "
+else
+  export PS1="${RESET}[${BLUE}\u@\h${NORMAL} \w]\$ "
+fi
+
+export HISTCONTROL=ignoreboth
+export HISTFILE=$HOME/.bash_history
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+

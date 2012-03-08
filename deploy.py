@@ -8,7 +8,7 @@ except:
 
 logging.basicConfig( level = logging.INFO )
 
-userDataRE = re.compile( "\$\{([\w\s]+)\}" )
+userDataRE = re.compile( "\%\{([\w\s]+)\}" )
 
 here = os.path.dirname( os.path.realpath( __file__ ) )
 
@@ -68,7 +68,7 @@ for module in os.listdir( here ):
       dData = sData
       for dataPiece in requiredData:
         value = raw_input( "Value for %s -> %s? " % ( destPath, dataPiece ) )
-        dData = dData.replace( "${%s}" % dataPiece, value )
+        dData = dData.replace( "%%{%s}" % dataPiece, value )
       dHash = md5( dData ).hexdigest()
       destFile = open( destPath, "w" )
       destFile.write( dData )
