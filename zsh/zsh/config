@@ -1,0 +1,29 @@
+
+
+export EDITOR="vim"
+export PAGER="less"
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+REPORTTIME=10
+
+setopt NO_HUP
+setopt NO_LIST_BEEP
+setopt HIST_VERIFY
+setopt SHARE_HISTORY # share history between sessions ???
+setopt COMPLETE_IN_WORD
+
+setopt APPEND_HISTORY # adds history
+setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
+setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
+setopt HIST_REDUCE_BLANKS
+
+#RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+#ssh-agent config
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent id_rsa
+

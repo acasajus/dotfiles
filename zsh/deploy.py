@@ -4,6 +4,10 @@ import sys, os
 
 here = os.path.dirname( os.path.realpath( __file__ ) )
 
+zDir = os.path.expanduser( os.path.join( "~", ".zsh" ) )
+if not os.path.exists( zDir ):
+  os.symlink( os.path.join( here, "zsh" ), zDir )
+
 omzDir = os.path.expanduser( os.path.join( "~" , ".oh-my-zsh" ) )
 if os.path.isdir( omzDir ):
   print "Seems oh-my-zsh is already installed in %s" % omzDir
