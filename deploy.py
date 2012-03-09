@@ -52,7 +52,7 @@ for module in os.listdir( here ):
       sys.exit( 1 )
   #Copy/link files where they are needed
   for source in os.listdir( modPath ):
-    if source == "deploy.py":
+    if source == "deploy.py" or source[0] == ".":
       continue
     sourcePath = os.path.join( modPath, source )
     logging.info( "Processing %s/%s" % ( module, source ) )
