@@ -1,5 +1,5 @@
 
-if strridx( hostname(), "cern.ch" ) > -1
+if v:version < 702
   call janus#disable_plugin( "zoomwin" )
   call janus#disable_plugin( "buffergator" )
   call janus#disable_plugin( "tagbar" )

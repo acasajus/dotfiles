@@ -12,6 +12,17 @@ userDataRE = re.compile( "\%\{([\w\s]+)\}" )
 
 here = os.path.dirname( os.path.realpath( __file__ ) )
 
+modIgnore = []
+try:
+  fd = open( os.path.expanduser( "~/.dotignore" ) )
+  modIgnore = [ line.strip() for line in fd.readlines() if line.strip() ]
+  fd.close()
+except IOError:
+  pass
+
+if modIgnore:
+  logging.info( "Ignoring %s modules" % ", ".join( modIgnore ) )
+
 stateFile = os.path.join( here, ".dotstate" )
 try:
   fd = open( stateFile )
@@ -28,7 +39,7 @@ def getContentHash( path ):
   return ( data,  md5( data ).hexdigest() )
 
 for module in os.listdir( here ):
-  if module[0] == "." or module == "deploy.py":
+  if module[0] == "." or module == "deploy.py" or module in modIgnore:
     continue
   logging.info( "Exploring %s" % module )
   modPath = os.path.join( here, module )
