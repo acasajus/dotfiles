@@ -1,9 +1,9 @@
 set backspace=2
-au FileType python setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nowrap
+au FileType python setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nowrap textwidth=140
 "auto open nerdtree
-if janus#is_plugin_enabled( 'nerdtree' )
-  autocmd vimenter * if !argc() | NERDTree | endif
-endif
+"if janus#is_plugin_enabled( 'nerdtree' )
+"  autocmd vimenter * if !argc() | NERDTree | endif
+"endif
 set statusline=%f    "tail of the filename
 set statusline+=%m   "modified?
 set statusline+=%r   "readonly?
