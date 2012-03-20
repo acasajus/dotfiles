@@ -25,11 +25,11 @@ set statusline+=\ B:#%n
 "Remove trailing spaces
 autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-"Buffergator size
-let g:buffergator_split_size=25
-"Buffergator toggle instead of open
-nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
-nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
+"Minibufexpl toggle
+nnoremap <silent> <Leader>b :TMiniBufExplorer<CR>
+
+"minibuffer explorer
+
 
 "Max textwidth
 set textwidth=140

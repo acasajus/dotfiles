@@ -1,7 +1,9 @@
 
+"Always disable buffergator
+call janus#disable_plugin( "buffergator" )
+
 if v:version < 702
   call janus#disable_plugin( "zoomwin" )
-  call janus#disable_plugin( "buffergator" )
   call janus#disable_plugin( "tagbar" )
   call janus#disable_plugin( "snipmate" )
 endif
