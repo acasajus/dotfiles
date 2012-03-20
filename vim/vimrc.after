@@ -28,8 +28,8 @@ autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
 "Minibufexpl toggle
 nnoremap <silent> <Leader>b :TMiniBufExplorer<CR>
 
-"minibuffer explorer
-
+"Tagbar toggle
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 "Max textwidth
 set textwidth=140
