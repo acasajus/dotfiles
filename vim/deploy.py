@@ -29,8 +29,17 @@ janusDir = os.path.expanduser( os.path.join( "~" , ".janus" ) )
 if not os.path.isdir( janusDir ):
   os.makedirs( janusDir )
 
-
-if os.system( "git clone https://github.com/fholgado/minibufexpl.vim.git %s" % os.path.join( janusDir, "minibufexpl" ) ) != 0:
-  print "Cound not clone minibufexpl into %s" % janusDir
-  sys.exit( 1 )
+for plugin in [ "https://github.com/fholgado/minibufexpl.vim.git" ]:
+  pluginName = plugin.split("/")[-1]
+  if pluginName[ -4: ] == ".git":
+    pluginName = pluginName[:-4]
+  pluginDir = os.path.join( janusDir, pluginName )
+  if os.path.isdir( pluginDir ):
+    if os.system( "cd %s; git pull" % pluginDir ) != 0:
+      print "Cannot git pull %s" % pluginDir
+      sys.exit( 1 )
+    continue
+  if os.system( "git clone %s %s" % ( plugin, pluginDir ) ) != 0:
+    print "Cound not clone %s into %s" % ( plugin, pluginDir )
+    sys.exit( 1 )
 
