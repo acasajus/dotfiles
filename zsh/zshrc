@@ -33,3 +33,7 @@ source "$HOME/.oh-my-zsh/init.zsh"
 
 # Customize to your needs...
 
+for d in /usr/local/mysql/bin $HOME/bin
+do
+  [[ -d "$d" ]] && export PATH="$d:$PATH"
+done
