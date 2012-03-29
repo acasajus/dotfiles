@@ -59,6 +59,4 @@
 [github]
 	user = %{github username}
 	token = %{github token}
-[core]
-  autocrlf = true
 
