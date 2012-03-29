@@ -19,7 +19,7 @@ if os.system( "git clone https://github.com/acasajus/oh-my-zsh.git %s" % omzDir 
   print "Cound not clone oh-my-zsh into %s" % omzDir
   sys.exit( 1 )
 
-if os.system( "cd $s; git submodule update --init --recursive" ) != 0:
+if os.system( "cd %s; git submodule update --init --recursive" % omzDir ) != 0:
   print "Could not initialize OMZ submodules"
   sys.exit( 1 )
 
