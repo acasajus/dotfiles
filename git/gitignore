@@ -23,7 +23,7 @@ tags
 
 # Vim       taken from: https://github.com/github/gitignore/blob/master/Global/vim.gitignore
 # ----------------------------------------------------------------------------------------------
-.*.sw[a-z]
+*.sw[a-z]
 *.un~
 Session.vim
 
