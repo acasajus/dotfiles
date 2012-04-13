@@ -50,3 +50,9 @@ do
 done
 
 unsetopt SHARE_HISTORY
+unsetopt AUTO_NAME_DIRS      # Auto add variable-stored paths to ~ list.
+unsetopt COMPLETE_IN_WORD    # Complete from both ends of a word
+unsetopt CLOBBER             # Don't overwrite existing files with > and >>
+unsetopt PATH_DIRS           # Perform path search even on command names with slashes.
+unsetopt FLOW_CONTROL        # Allow C-s and C-q to stop/start the terminal flow
+

@@ -1,6 +1,7 @@
 
-"Always disable buffergator
+"Always disable buffergator and gist
 call janus#disable_plugin( "buffergator" )
+call janus#disable_plugin( "gist" )
 
 if v:version < 702
   call janus#disable_plugin( "zoomwin" )
