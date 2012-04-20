@@ -10,6 +10,8 @@ if [[ $- != *i* ]] ; then
   return
 fi
 
+
+
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
@@ -29,10 +31,48 @@ case ${TERM} in
     ;;
 esac
 
+RCOL="\[\033[00m\]"
+RED="\[\033[0;31m\]"
+GREEN="\[\033[0;32m\]"
+YELLOW="\[\033[0;33m\]"
+BLUE="\[\033[0;34m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+CYAN="\[\033[0;36m\]"
+
+function git-branch-name {
+  echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+}
+
+function git-dirty {
+  st=$(git status 2>/dev/null | tail -n 1)
+  if [[ $st != "nothing to commit (working directory clean)" ]]
+  then
+    echo "*"
+  fi
+}
+
+function git-unpushed {
+    brinfo=$(git branch -v | grep git-branch-name)
+    if [[ $brinfo =~ ("[ahead "([[:digit:]]*)]) ]]
+    then
+        echo "(${BASH_REMATCH[2]})"
+    fi
+}
+
+function gitify {
+    status=$(git status 2>/dev/null | tail -n 1)
+    if [[ $status == "" ]]
+    then
+        echo ""
+    else
+        echo -e " (git:${RED}$(git-branch-name)${CYAN}$(git-dirty)$(git-unpushed)${BLUE})" | sed 's:\\\]::g' | sed 's:\\\[::g'
+    fi
+}
+
 if [[ ${EUID} == 0 ]] ; then
-  PS1='\[\033[01;34m\][\[\033[01;31m\]\h\[\033[01;34m\] \W]\$\[\033[00m\] '
+  PS1="${RED}\h ${BLUE}\w\$(gitify) >${RCOL} "
 else
-  PS1='\[\033[01;34m\][\[\033[01;32m\]\u@\h\[\033[01;34m\] \w]\$\[\033[00m\] '
+  PS1="${GREEN}\u@\h ${BLUE}\w\$(gitify) >${RCOL} "
 fi
 
 alias ls='ls --color=auto'
