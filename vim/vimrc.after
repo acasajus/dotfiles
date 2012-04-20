@@ -38,8 +38,5 @@ set textwidth=140
 set directory=.,$TEMP
 set backupdir=.,~/.vim/backups
 
-"TAB magic
-"On new buffer open tab
-"set switchbuf=usetab,newtab
-"Open all buffers as tabs
-"tab sball
+"Dark backgrond
+set background=dark
