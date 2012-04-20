@@ -56,3 +56,4 @@ unsetopt CLOBBER             # Don't overwrite existing files with > and >>
 unsetopt PATH_DIRS           # Perform path search even on command names with slashes.
 unsetopt FLOW_CONTROL        # Allow C-s and C-q to stop/start the terminal flow
 
+[[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm

@@ -37,3 +37,5 @@ fi
 
 alias ls='ls --color=auto'
 alias grep='grep --colour=auto'
+
+[[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
