@@ -53,10 +53,8 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Better buffer management
 map <silent> <leader>b :buffers<CR>:buffer<Space>
 
-" INFECT!
-call pathogen#infect()
-" Enable filetyple plugin
-filetype plugin indent on
+" Vundle!
+source ~/.vim/bundles.vim
 
 " Bind F2 to show "invisible" chars
 nmap <silent> <F2> :set invlist<CR>:set list?<CR>
@@ -98,3 +96,4 @@ let g:Powerline_symbols="unicode"
 
 "Set the badwolf colorsheme
 colorscheme badwolf
+
