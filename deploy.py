@@ -12,7 +12,7 @@ userDataRE = re.compile( "\%\{([\w\s]+)\}" )
 
 here = os.path.dirname( os.path.realpath( __file__ ) )
 
-modIgnore = []
+modIgnore = [ 'Terminal.app' ]
 try:
   fd = open( os.path.expanduser( "~/.dotignore" ) )
   modIgnore = [ line.strip() for line in fd.readlines() if line.strip() ]
