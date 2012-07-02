@@ -10,7 +10,6 @@ set noeol            " Don't add empty newlines at end of files
 set background=dark  " Dark bg
 set tabstop=2        " Make tabs as wide as two spaces
 set hlsearch         " Highlight searches
-set ignorecase       " Ignore case of searches
 set incsearch        " Highlight dynamically as pattern is typed
 set laststatus=2     " Always show status line
 set mouse=a          " Enable mouse in all modes
@@ -23,8 +22,9 @@ set title            " Show the filename in the window titlebar
 set showcmd          " Show the (partial) command as it’s being typed
 syntax on            " Enable syntax highlighting
 let mapleader=","    " Change the mapleader
-set textwidth=140     " Max textwidth
+set textwidth=140    " Max textwidth
 set backspace=2      " Set backspace work like in most other apps 
+
 
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
@@ -74,6 +74,9 @@ noremap <F8> :TagbarToggle<CR>
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
+" select previously yanked line
+nnoremap <leader>v V`]
+
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
 map <Up> gk
@@ -83,6 +86,21 @@ nmap <leader>hs :set hlsearch! hlsearch?<CR>
 
 " Adjust viewports to the same size
 map <Leader>= <C-w>=
+
+" Spell Check
+let b:myLang=0
+let g:myLangList=["nospell","en_us", "es_es"]
+function! ToggleSpell()
+  let b:myLang=b:myLang+1
+  if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+  if b:myLang==0
+    setlocal nospell
+  else
+    execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+  endif
+  echo "spell checking language:" g:myLangList[b:myLang]
+endfunction
+nmap <leader>s :call ToggleSpell()<CR>
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
@@ -94,6 +112,12 @@ let g:ctrlp_custom_ignore = {
 	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
 	\ }
 
+let g:ctrlp_extensions = ['cmdline', 'yankring']
+
+"Supertab magic
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menu
+
 " Unicode powerline
 let g:Powerline_symbols="unicode"
  
@@ -103,3 +127,15 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 "Set the badwolf colorsheme
 colorscheme badwolf
 
+" Github install 
+let $GIT_SSL_NO_VERIFY = 'true'
+
+" Latexbox config
+let g:LatexBox_latexmk_options = '-pvc'
+let g:LatexBox_autojump = 1
+
+" Darwincrap
+let os=system("uname")
+if os=="Darwin"
+  let g:LatexBox_viewer = '/Applications/Preview.app/Contents/MacOS/Preview'
+endif

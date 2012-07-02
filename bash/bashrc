@@ -1,4 +1,7 @@
-[ -f "$HOME/.profile" ] && source $HOME/.profile
+if [ "$BASH_PROFILE_LOADED" == "" ]; then
+  export BASH_PROFILE_LOADED=$$
+  [ -f "$HOME/.profile" ] && source $HOME/.profile
+fi
 
 export HISTCONTROL=ignoreboth
 export HISTFILE=$HOME/.bash_history
@@ -79,3 +82,5 @@ alias ls='ls --color=auto'
 alias grep='grep --colour=auto'
 
 [[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
