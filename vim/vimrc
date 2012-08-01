@@ -50,6 +50,7 @@ function! StripWhitespace()
 	call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
+autocmd BufWritePre *.py call StripWhitespace()
 
 " Better buffer management
 map <silent> <leader>b :buffers<CR>:buffer<Space>
@@ -111,7 +112,7 @@ let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\.git$\|\.hg$\|\.svn$',
 	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
 	\ }
-
+let g:ctrlp_map = '<c-f>'
 let g:ctrlp_extensions = ['cmdline', 'yankring']
 
 "Supertab magic
