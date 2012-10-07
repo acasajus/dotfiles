@@ -1,5 +1,6 @@
 .dotstate
 *.py[co]
+vim/vim/bundles
 
 # OSX       taken from: https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 # ----------------------------------------------------------------------------------------------
