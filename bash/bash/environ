@@ -1,0 +1,24 @@
+
+# Enable history appending instead of overwriting.  #139609
+shopt -s histappend
+
+export HISTCONTROL=ignoreboth
+export HISTFILE=$HOME/.bash_history
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.  #65623
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
+shopt -s checkwinsize
+
+
+#RVM
+[[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+
+#PYTHONBREW
+[[ -f ~/.pythonbrew/etc/bashrc ]] && source ~/.pythonbrew/etc/bashrc
+
+
+

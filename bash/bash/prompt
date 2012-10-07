@@ -1,0 +1,55 @@
+#COLORS
+RCOL="\[\033[00m\]"
+RED="\[\033[0;31m\]"
+GREEN="\[\033[0;32m\]"
+YELLOW="\[\033[0;33m\]"
+BLUE="\[\033[0;34m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+CYAN="\[\033[0;36m\]"
+
+# Change the window title of X terminals 
+case ${TERM} in
+  xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+    ;;
+  screen)
+    PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+    ;;
+esac
+
+function git-branch-name {
+  echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+}
+
+function git-dirty {
+  st=$(git status 2>/dev/null | tail -n 1)
+  if [[ $st != "nothing to commit (working directory clean)" ]]
+  then
+    echo "#"
+  fi
+}
+
+function git-unpushed {
+    brinfo=$(git branch -v | grep git-branch-name)
+    if [[ $brinfo =~ ("[ahead "([[:digit:]]*)]) ]]
+    then
+        echo "(${BASH_REMATCH[2]})"
+    fi
+}
+
+function gitify {
+    status=$(git status 2>/dev/null | tail -n 1)
+    if [[ $status == "" ]]
+    then
+        echo ""
+    else
+        echo -e " (git:${YELLOW}$(git-branch-name)${RED}$(git-dirty)$(git-unpushed)${CYAN})" | sed 's:\\\]::g' | sed 's:\\\[::g'
+    fi
+}
+
+if [[ ${EUID} == 0 ]] ; then
+  PS1="${RED}\h ${CYAN}\w\$(gitify) >${RCOL} "
+else
+  PS1="${GREEN}\u@\h ${CYAN}\w\$(gitify) >${RCOL} "
+fi
+

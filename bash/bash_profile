@@ -1,0 +1,17 @@
+if [ "$BASH_PROFILE_LOADED" == "" ]; then
+  export BASH_PROFILE_LOADED=$$
+  [ -f "$HOME/.profile" ] && source $HOME/.profile
+fi
+
+if [[ $- != *i* ]] ; then
+  # Shell is non-interactive.  Be done now!
+  return
+fi
+
+#Load environment
+source $HOME/.bash/environ
+#Load alias
+source $HOME/.bash/alias
+#Load prompt
+source $HOME/.bash/prompt
+

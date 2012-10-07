@@ -1,0 +1,8 @@
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias pyclean='find . -name "*.pyc" -exec rm {} \;'
+
+
+
+
+
