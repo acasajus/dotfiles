@@ -22,19 +22,33 @@ function git-branch-name {
 }
 
 function git-dirty {
-  st=$(git status 2>/dev/null | tail -n 1)
-  if [[ $st != "nothing to commit (working directory clean)" ]]
-  then
-    echo "#"
+  git diff --no-ext-diff --quiet --exit-code || w="*"
+  if git rev-parse --quiet --verify HEAD > /dev/null; then
+    git diff-index --cached --quiet HEAD -- || i="+"
+  else
+    i="#"
   fi
+  git rev-parse --verify refs/stash >/dev/null 2>&1 && s="$"
+  if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+    u="%"
+  fi
+  echo "$w$i$s$u"
 }
 
 function git-unpushed {
-    brinfo=$(git branch -v | grep git-branch-name)
-    if [[ $brinfo =~ ("[ahead "([[:digit:]]*)]) ]]
-    then
-        echo "(${BASH_REMATCH[2]})"
-    fi
+  count="$(git rev-list --count --left-right '@{upstream}..HEAD' 2>/dev/null)"
+  case "$count" in
+  "")
+    echo "" ;;
+  "0	0")
+    echo "=" ;;
+  "0	"*)
+    echo ">" ;; 
+  *"	0")
+    echo "<" ;;
+  *)
+    echo "<>" ;;
+  esac
 }
 
 function gitify {
