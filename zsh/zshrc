@@ -57,7 +57,7 @@ unsetopt PATH_DIRS           # Perform path search even on command names with sl
 unsetopt FLOW_CONTROL        # Allow C-s and C-q to stop/start the terminal flow
 
 [[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
-[[ -s "~/.pythonbrew/etc/bashrc" ]] && source "~/.pythonbrew/etc/bashrc"
+[[ -s ~/.pythonbrew/etc/bashrc ]] && source ~/.pythonbrew/etc/bashrc
 [[ -f ~/.ansible/set_env ]] && source ~/.ansible/set_env
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
