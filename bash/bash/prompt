@@ -1,11 +1,18 @@
+
 #COLORS
-RCOL="\[\033[00m\]"
-RED="\[\033[0;31m\]"
-GREEN="\[\033[0;32m\]"
-YELLOW="\[\033[0;33m\]"
-BLUE="\[\033[0;34m\]"
-LIGHT_GRAY="\[\033[0;37m\]"
-CYAN="\[\033[0;36m\]"
+RCOL="\033[00m"
+RED="\033[0;31m"
+BRED="\033[1;31m"
+GREEN="\033[0;32m"
+BGREEN="\033[1;32m"
+YELLOW="\033[0;33m"
+BYELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+BBLUE="\033[1;34m"
+LIGHT_GRAY="\033[0;37m"
+BLIGHT_GRAY="\033[1;37m"
+CYAN="\033[0;36m"
+BCYAN="\033[1;36m"
 
 # Change the window title of X terminals 
 case ${TERM} in
@@ -17,11 +24,11 @@ case ${TERM} in
     ;;
 esac
 
-function git-branch-name {
+function __git-branch-name {
   echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
-function git-dirty {
+function __git-dirty {
   git diff --no-ext-diff --quiet --exit-code || w="*"
   if git rev-parse --quiet --verify HEAD > /dev/null; then
     git diff-index --cached --quiet HEAD -- || i="+"
@@ -35,13 +42,13 @@ function git-dirty {
   echo "$w$i$s$u"
 }
 
-function git-unpushed {
+function __git-unpushed {
   count="$(git rev-list --count --left-right '@{upstream}..HEAD' 2>/dev/null)"
   case "$count" in
   "")
     echo "" ;;
   "0	0")
-    echo "=" ;;
+    echo "${BGREEN}=" ;;
   "0	"*)
     echo ">" ;; 
   *"	0")
@@ -51,19 +58,38 @@ function git-unpushed {
   esac
 }
 
-function gitify {
+function _pmt_git {
     status=$(git status 2>/dev/null | tail -n 1)
     if [[ $status == "" ]]
     then
         echo ""
     else
-        echo -e " (git:${YELLOW}$(git-branch-name)${RED}$(git-dirty)$(git-unpushed)${CYAN})" | sed 's:\\\]::g' | sed 's:\\\[::g'
+        echo -e " (git:${YELLOW}$(__git-branch-name)${RED}$(__git-dirty)$(__git-unpushed)${CYAN})"
     fi
 }
 
-if [[ ${EUID} == 0 ]] ; then
-  PS1="${RED}\h ${CYAN}\w\$(gitify) >${RCOL} "
-else
-  PS1="${GREEN}\u@\h ${CYAN}\w\$(gitify) >${RCOL} "
-fi
+function _pmt_userhost {
+	if [[ ${EUID} == 0 ]] ; then
+		echo -e "${BRED}$(hostname -s)"
+	else
+		echo -e "${GREEN}$USER@$(hostname -s)"
+  fi
+}
 
+function _pmt_where {
+  echo -e "${CYAN}${PWD/$HOME/~}"
+}
+
+
+function _pmt {
+	last=$?
+	if [[ "$last" == "0" ]] ; then
+		out="${BGREEN}>${RCOL}"
+  else
+		out="${BRED}>${RCOL}"
+  fi
+  echo -e "$(_pmt_userhost) $(_pmt_where)$(_pmt_git) ${out} "
+
+}
+
+PS1="\$(_pmt)"
