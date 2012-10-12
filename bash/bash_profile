@@ -8,10 +8,14 @@ if [[ $- != *i* ]] ; then
   return
 fi
 
+MASH_HOME=$HOME/.mash
+
 #Load environment
-source $HOME/.bash/environ
+source ${MASH_HOME}/environ
 #Load alias
-source $HOME/.bash/alias
+source ${MASH_HOME}/alias
 #Load prompt
-source $HOME/.bash/prompt
+source ${MASH_HOME}/prompt
+
+unset MASH_HOME
 

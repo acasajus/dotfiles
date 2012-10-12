@@ -56,7 +56,4 @@
   prompt = false
 [achievement]
 	upload = false
-[github]
-	user = %{github username}
-	token = %{github token}
 
