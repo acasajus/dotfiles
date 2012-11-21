@@ -30,6 +30,7 @@ function __git-branch-name {
 
 function __git-dirty {
   git diff --no-ext-diff --quiet --exit-code || w="*"
+  i=""
   if git rev-parse --quiet --verify HEAD > /dev/null; then
     git diff-index --cached --quiet HEAD -- || i="+"
   else

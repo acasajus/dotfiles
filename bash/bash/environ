@@ -22,5 +22,8 @@ export CLICOLOR=1
 #PYTHONBREW
 [[ -f ~/.pythonbrew/etc/bashrc ]] && source ~/.pythonbrew/etc/bashrc
 
-
+for i in /usr/local/sbin
+do
+	[[ -d $i ]] && export PATH=$PATH:$i
+done
 
