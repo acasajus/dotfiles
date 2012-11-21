@@ -23,21 +23,6 @@ except IOError:
 if modIgnore:
   logging.info( "Ignoring %s modules" % ", ".join( modIgnore ) )
 
-stateFile = os.path.join( here, ".dotstate" )
-try:
-  fd = open( stateFile )
-  dotState = pickle.load( fd )
-  fd.close()
-except:
-  dotState = {}
-
-def getContentHash( path ):
-  logging.debug( "Getting contents from %s" % path )
-  pathFile = open( path )
-  data = pathFile.read()
-  pathFile.close()
-  return ( data,  md5( data ).hexdigest() )
-
 for module in os.listdir( here ):
   if module[0] == "." or module == "deploy.py" or module in modIgnore:
     continue
@@ -56,7 +41,7 @@ for module in os.listdir( here ):
       continue
     sourcePath = os.path.join( modPath, source )
     logging.info( "Processing %s/%s" % ( module, source ) )
-    if not os.path.isfile( sourcePath ):
+    if not os.path.isfile( sourcePath ) or not os.path.isdir( sourcePath ):
       continue
     destPath = os.path.expanduser( os.path.join( "~" , ".%s" % source ) )
     logging.debug( "Destination is %s" % destPath )
@@ -91,7 +76,3 @@ for module in os.listdir( here ):
         os.unlink( destPath )
       os.symlink( sourcePath, destPath )
 
-
-fd = open( stateFile, "w" )
-pickle.dump( dotState, fd )
-fd.close()
