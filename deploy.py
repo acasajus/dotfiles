@@ -6,7 +6,8 @@ try:
 except:
   from md5 import md5
 
-logging.basicConfig( level = logging.INFO )
+#logging.basicConfig( level = logging.INFO )
+logging.basicConfig( level = logging.DEBUG )
 
 userDataRE = re.compile( "\%\{([\w\s]+)\}" )
 
@@ -41,38 +42,18 @@ for module in os.listdir( here ):
       continue
     sourcePath = os.path.join( modPath, source )
     logging.info( "Processing %s/%s" % ( module, source ) )
-    if not os.path.isfile( sourcePath ) or not os.path.isdir( sourcePath ):
+    if not os.path.isfile( sourcePath ) and not os.path.isdir( sourcePath ):
+      logging.info( "%s is not file or dir" % sourcePath )
       continue
     destPath = os.path.expanduser( os.path.join( "~" , ".%s" % source ) )
     logging.debug( "Destination is %s" % destPath )
-    sData, sHash = getContentHash( sourcePath )
     if os.path.islink( destPath ):
       if sourcePath == os.readlink( destPath ):
         logging.info( "Link already set up" )
         continue
-    elif os.path.isfile( destPath ):
-      dData, dHash = getContentHash( destPath )
-      if sHash == dHash or dotState.get( sHash, "" ) == dHash :
-        logging.info( "%s/%s already in sync" % ( module, source ) )
-        continue
     #Need to sync the file
-    #Any templating?
-    logging.info( "Syncing %s to %s" % ( sourcePath, destPath ) )
-    requiredData = userDataRE.findall( sData )
-    if requiredData:
-      logging.info( "%s/%s requires %s user info" % ( module, source, ", ".join( requiredData ) ) )
-      dData = sData
-      for dataPiece in requiredData:
-        value = raw_input( "Value for %s -> %s? " % ( destPath, dataPiece ) )
-        dData = dData.replace( "%%{%s}" % dataPiece, value )
-      dHash = md5( dData ).hexdigest()
-      destFile = open( destPath, "w" )
-      destFile.write( dData )
-      destFile.close()
-      dotState[ sHash ] = dHash
-    else:
-      logging.info( "Linking %s <- %s" % ( sourcePath, destPath ) )
-      if os.path.exists( destPath ):
-        os.unlink( destPath )
-      os.symlink( sourcePath, destPath )
+    logging.info( "Linking %s <- %s" % ( sourcePath, destPath ) )
+    if os.path.exists( destPath ):
+      os.unlink( destPath )
+    os.symlink( sourcePath, destPath )
 

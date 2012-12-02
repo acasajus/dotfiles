@@ -89,21 +89,6 @@ nmap <leader>hs :set hlsearch! hlsearch?<CR>
 " Adjust viewports to the same size
 map <Leader>= <C-w>=
 
-" Spell Check
-let b:myLang=0
-let g:myLangList=["nospell","en_us", "es_es"]
-function! ToggleSpell()
-  let b:myLang=b:myLang+1
-  if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
-  if b:myLang==0
-    setlocal nospell
-  else
-    execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
-  endif
-  echo "spell checking language:" g:myLangList[b:myLang]
-endfunction
-nmap <leader>s :call ToggleSpell()<CR>
-
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
@@ -115,6 +100,10 @@ let g:ctrlp_custom_ignore = {
 	\ }
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_extensions = ['cmdline', 'yankring']
+
+"Yankring
+let g:yankring_history_dir = '~/.vim/swaps'
+let g:yankring_history_file = 'yankring.hist'
 
 "Supertab magic
 let g:SuperTabDefaultCompletionType = "context"
@@ -131,10 +120,6 @@ colorscheme badwolf
 
 " Github install 
 let $GIT_SSL_NO_VERIFY = 'true'
-
-" Latexbox config
-let g:LatexBox_latexmk_options = '-pvc'
-let g:LatexBox_autojump = 1
 
 " Darwincrap
 let os=system("uname")
