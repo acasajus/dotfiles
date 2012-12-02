@@ -16,56 +16,62 @@ BCYAN="\033[1;36m"
 
 # Change the window title of X terminals 
 case ${TERM} in
-  xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-    ;;
-  screen)
-    PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-    ;;
+	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		;;
+	screen)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		;;
 esac
 
 function __git-branch-name {
-  echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+	echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
 function __git-dirty {
-  git diff --no-ext-diff --quiet --exit-code || w="*"
-  if git rev-parse --quiet --verify HEAD > /dev/null; then
-    git diff-index --cached --quiet HEAD -- || i="+"
-  else
-    i="#"
-  fi
-  git rev-parse --verify refs/stash >/dev/null 2>&1 && s="$"
-  if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-    u="%"
-  fi
-  echo "$w$i$s$u"
+	git diff --no-ext-diff --quiet --exit-code || w="*"
+	i=""
+	if git rev-parse --quiet --verify HEAD > /dev/null; then
+		git diff-index --cached --quiet HEAD -- || i="+"
+	else
+		i="#"
+	fi
+	git rev-parse --verify refs/stash >/dev/null 2>&1 && s="$"
+	if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+		u="%"
+	fi
+	echo "$w$i$s$u"
 }
 
 function __git-unpushed {
-  count="$(git rev-list --count --left-right '@{upstream}..HEAD' 2>/dev/null)"
-  case "$count" in
-  "")
-    echo "" ;;
-  "0	0")
-    echo "${BGREEN}=" ;;
-  "0	"*)
-    echo ">" ;; 
-  *"	0")
-    echo "<" ;;
-  *)
-    echo "<>" ;;
-  esac
+	count="$(git rev-list --count --left-right '@{upstream}..HEAD' 2>/dev/null)"
+	case "$count" in
+	"")
+		echo "" 
+		;;
+	"0	0")
+		echo "${BGREEN}=" 
+		;;
+	"0	"*)
+		echo ">" 
+		;; 
+	*"	0")
+		echo "<" 
+		;;
+	*)
+		echo "<>" 
+		;;
+	esac
 }
 
 function _pmt_git {
-    status=$(git status 2>/dev/null | tail -n 1)
-    if [[ $status == "" ]]
-    then
-        echo ""
-    else
-        echo -e " (git:${YELLOW}$(__git-branch-name)${RED}$(__git-dirty)$(__git-unpushed)${CYAN})"
-    fi
+	status=$(git status 2>/dev/null | tail -n 1)
+	if [[ $status == "" ]]
+	then
+		echo ""
+	else
+		echo -e " (git:${YELLOW}$(__git-branch-name)${RED}$(__git-dirty)$(__git-unpushed)${CYAN})"
+	fi
 }
 
 function _pmt_userhost {
@@ -73,11 +79,11 @@ function _pmt_userhost {
 		echo -e "${BRED}$(hostname -s)"
 	else
 		echo -e "${GREEN}$USER@$(hostname -s)"
-  fi
+	fi
 }
 
 function _pmt_where {
-  echo -e "${CYAN}${PWD/$HOME/~}"
+	echo -e "${CYAN}${PWD/$HOME/~}"
 }
 
 
@@ -85,11 +91,10 @@ function _pmt {
 	last=$?
 	if [[ "$last" == "0" ]] ; then
 		out="${BGREEN}>${RCOL}"
-  else
+	else
 		out="${BRED}>${RCOL}"
-  fi
-  echo -e "$(_pmt_userhost) $(_pmt_where)$(_pmt_git) ${out} "
-
+	fi
+	echo -e "$(_pmt_userhost) $(_pmt_where)$(_pmt_git) ${out} "
 }
 
 PS1="\$(_pmt)"

@@ -1,7 +1,5 @@
 alias grep='grep --color=auto'
 alias pyclean='find . -name "*.pyc" -exec rm {} \;'
-
-
-
-
+alias pyvim='vim $(find . -name "*.py" | grep -v -e __init__ -e setup.py )'
+alias sshnocheck='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 

@@ -7,6 +7,7 @@ except:
   from md5 import md5
 
 logging.basicConfig( level = logging.INFO )
+#logging.basicConfig( level = logging.DEBUG )
 
 userDataRE = re.compile( "\%\{([\w\s]+)\}" )
 
@@ -42,6 +43,9 @@ for module in os.listdir( here ):
       continue
     sourcePath = os.path.join( modPath, source )
     logging.info( "Processing %s/%s" % ( module, source ) )
+    if not os.path.isfile( sourcePath ) and not os.path.isdir( sourcePath ):
+      logging.info( "%s is not file or dir" % sourcePath )
+      continue
     destPath = os.path.expanduser( os.path.join( "~" , ".%s" % source ) )
     logging.debug( "Destination is %s" % destPath )
     if os.path.islink( destPath ):

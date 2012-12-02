@@ -21,9 +21,12 @@ Bundle 'sjl/gundo.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-surround'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'ervandew/supertab'
 Bundle 'vim-scripts/YankRing.vim'
+
+" Ruby/rails
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rails'
+
 
 " :)
 filetype plugin indent on
