@@ -16,14 +16,27 @@ shopt -s checkwinsize
 #Color for OSX
 export CLICOLOR=1
 
+#Sanitize PATH
+newPATH=""
+for entry in $(echo $PATH | sed 's/:/ /g')
+do 
+  #Remove trailing slash
+  entry=$(echo $entry | sed 's:/$::g')
+  #Remove /usr/local/bin
+  if [ -d "$entry" -a "$entry" != "/usr/local/bin" ]; then
+    newPATH="$newPATH:$entry"
+  fi
+done
+export PATH=$(echo $newPATH | sed 's/^://g')
+
+for i in /usr/local/bin
+do
+	[[ -d $i ]] && export PATH=$i:$PATH
+done
+
 #RVM
 [[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
 
 #PYTHONBREW
 [[ -f ~/.pythonbrew/etc/bashrc ]] && source ~/.pythonbrew/etc/bashrc
-
-for i in /usr/local/sbin
-do
-	[[ -d $i ]] && export PATH=$PATH:$i
-done
 
