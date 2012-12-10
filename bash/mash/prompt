@@ -86,7 +86,6 @@ function _pmt_where {
 	echo -e "${CYAN}${PWD/$HOME/~}"
 }
 
-
 function _pmt {
 	last=$?
 	if [[ "$last" == "0" ]] ; then

@@ -24,7 +24,15 @@ do
   entry=$(echo $entry | sed 's:/$::g')
   #Remove /usr/local/bin
   if [ -d "$entry" -a "$entry" != "/usr/local/bin" ]; then
-    newPATH="$newPATH:$entry"
+    case "$entry" in
+      "/usr/local/bin") 
+        ;;
+      "$HOME/bin") 
+        ;;
+      *)
+        newPATH="$newPATH:$entry"
+        ;;
+    esac
   fi
 done
 export PATH=$(echo $newPATH | sed 's/^://g')
@@ -40,3 +48,8 @@ done
 #PYTHONBREW
 [[ -f ~/.pythonbrew/etc/bashrc ]] && source ~/.pythonbrew/etc/bashrc
 
+#Set the home bin the first one
+for i in $HOME/bin
+do
+	[[ -d $i ]] && export PATH=$i:$PATH
+done
