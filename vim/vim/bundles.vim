@@ -31,4 +31,5 @@ Bundle 'tpope/vim-rake'
 
 
 " :)
+filetype on
 filetype plugin indent on
