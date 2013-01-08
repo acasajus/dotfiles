@@ -2,10 +2,10 @@
 # Change the window title of X terminals 
 case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007";PS1=$(_pmt)'
 		;;
 	screen)
-		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\";PS1=$(_pmt)'
 		;;
 esac
 
@@ -35,7 +35,7 @@ function __git-unpushed {
 		echo "" 
 		;;
 	"0	0")
-		echo "${echo_bold_green}=" 
+		echo "${bold_green}=" 
 		;;
 	"0	"*)
 		echo ">" 
@@ -55,37 +55,37 @@ function _pmt_git {
 	then
 		echo ""
 	else
-		echo -ne " ${echo_cyan}(git:${echo_yellow}$(__git-branch-name)${echo_red}$(__git-dirty)$(__git-unpushed)${echo_cyan})"
+		echo -ne " ${cyan}(git:${yellow}$(__git-branch-name)${red}$(__git-dirty)$(__git-unpushed)${cyan})"
 	fi
 }
 
 function _pmt_rvm {
   if which rvm &> /dev/null; then
     rvm=$(rvm current) || return
-    echo -e " ${echo_cyan}(rvm:${echo_green}${rvm}${echo_cyan})"
+    echo -ne " ${cyan}(rvm:${green}${rvm}${cyan})"
   fi
 }
 
 function _pmt_userhost {
 	if [[ ${EUID} == 0 ]] ; then
-		echo -ne "${echo_bold_red}$(hostname -s)"
+		echo -en "${bold_red}$(hostname -s)"
 	else
-		echo -ne "${echo_green}$USER@$(hostname -s)"
+		echo -en "${green}$USER@$(hostname -s)"
 	fi
 }
 
 function _pmt_where {
-	echo -ne "${echo_cyan}${PWD/$HOME/~}"
+	echo -ne "${cyan}${PWD/$HOME/~}"
 }
 
 function _pmt {
 	last=$?
 	if [[ "$last" == "0" ]] ; then
-		out="${echo_bold_green}>${echo_reset_color}"
+		out="${bold_green}>${reset_color}"
 	else
-		out="${echo_bold_red}>${echo_reset_color}"
+		out="${bold_red}>${reset_color}"
 	fi
 	echo -ne "$(_pmt_userhost) $(_pmt_where)$(_pmt_git)$(_pmt_rvm) ${out} "
 }
 
-PS1="\$(_pmt)"
+#PS1="\$(_pmt)"
