@@ -1,13 +1,5 @@
 
-# Change the window title of X terminals 
-case ${TERM} in
-	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007";PS1=$(_pmt)'
-		;;
-	screen)
-		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\";PS1=$(_pmt)'
-		;;
-esac
+
 
 function __git-branch-name {
 	echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
@@ -88,4 +80,14 @@ function _pmt {
 	echo -ne "$(_pmt_userhost) $(_pmt_where)$(_pmt_git)$(_pmt_rvm) ${out} "
 }
 
-#PS1="\$(_pmt)"
+#Default PS1
+PS1="\u@\h \w > "
+## Change the window title of X terminals and set PS1
+case ${TERM} in
+	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007";PS1=$(_pmt)'
+		;;
+	screen)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\";PS1=$(_pmt)'
+		;;
+esac
