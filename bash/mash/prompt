@@ -52,9 +52,13 @@ function _pmt_git {
 }
 
 function _pmt_rvm {
-  if which rvm &> /dev/null; then
-    rvm=$(rvm current) || return
-    echo -ne " ${cyan}(rvm:${green}${rvm}${cyan})"
+  if which rvm-prompt &> /dev/null; then
+    rvm=$(rvm-prompt v)
+		if [ "$rvm" == "" ]; then
+			return
+		fi
+		gemset="${red}$(rvm-prompt g)"
+    echo -ne " ${cyan}(rvm:${green}${rvm}${gemset}${cyan})"
   fi
 }
 
