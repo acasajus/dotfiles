@@ -1,19 +1,4 @@
 
-#COLORS
-RCOL="\033[00m"
-RED="\033[0;31m"
-BRED="\033[1;31m"
-GREEN="\033[0;32m"
-BGREEN="\033[1;32m"
-YELLOW="\033[0;33m"
-BYELLOW="\033[1;33m"
-BLUE="\033[0;34m"
-BBLUE="\033[1;34m"
-LIGHT_GRAY="\033[0;37m"
-BLIGHT_GRAY="\033[1;37m"
-CYAN="\033[0;36m"
-BCYAN="\033[1;36m"
-
 # Change the window title of X terminals 
 case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
@@ -50,7 +35,7 @@ function __git-unpushed {
 		echo "" 
 		;;
 	"0	0")
-		echo "${BGREEN}=" 
+		echo "${echo_bold_green}=" 
 		;;
 	"0	"*)
 		echo ">" 
@@ -70,30 +55,37 @@ function _pmt_git {
 	then
 		echo ""
 	else
-		echo -e " (git:${YELLOW}$(__git-branch-name)${RED}$(__git-dirty)$(__git-unpushed)${CYAN})"
+		echo -ne " ${echo_cyan}(git:${echo_yellow}$(__git-branch-name)${echo_red}$(__git-dirty)$(__git-unpushed)${echo_cyan})"
 	fi
+}
+
+function _pmt_rvm {
+  if which rvm &> /dev/null; then
+    rvm=$(rvm current) || return
+    echo -e " ${echo_cyan}(rvm:${echo_green}${rvm}${echo_cyan})"
+  fi
 }
 
 function _pmt_userhost {
 	if [[ ${EUID} == 0 ]] ; then
-		echo -e "${BRED}$(hostname -s)"
+		echo -ne "${echo_bold_red}$(hostname -s)"
 	else
-		echo -e "${GREEN}$USER@$(hostname -s)"
+		echo -ne "${echo_green}$USER@$(hostname -s)"
 	fi
 }
 
 function _pmt_where {
-	echo -e "${CYAN}${PWD/$HOME/~}"
+	echo -ne "${echo_cyan}${PWD/$HOME/~}"
 }
 
 function _pmt {
 	last=$?
 	if [[ "$last" == "0" ]] ; then
-		out="${BGREEN}>${RCOL}"
+		out="${echo_bold_green}>${echo_reset_color}"
 	else
-		out="${BRED}>${RCOL}"
+		out="${echo_bold_red}>${echo_reset_color}"
 	fi
-	echo -e "$(_pmt_userhost) $(_pmt_where)$(_pmt_git) ${out} "
+	echo -ne "$(_pmt_userhost) $(_pmt_where)$(_pmt_git)$(_pmt_rvm) ${out} "
 }
 
 PS1="\$(_pmt)"

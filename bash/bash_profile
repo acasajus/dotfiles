@@ -14,6 +14,8 @@ MASH_HOME=$HOME/.mash
 source ${MASH_HOME}/environ
 #Load alias
 source ${MASH_HOME}/alias
+#Load colors
+source ${MASH_HOME}/colors
 #Load prompt
 source ${MASH_HOME}/prompt
 

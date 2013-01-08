@@ -22,11 +22,12 @@ Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
-Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-sleuth'
 
 " Ruby/rails
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
 
 
 " :)
