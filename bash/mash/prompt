@@ -77,9 +77,9 @@ function _pmt_where {
 function _pmt {
 	last=$?
 	if [[ "$last" == "0" ]] ; then
-		out="${bold_green}>${reset_color}"
+		out="${bold_green}>${normal}"
 	else
-		out="${bold_red}>${reset_color}"
+		out="${bold_red}>${normal}"
 	fi
 	echo -ne "$(_pmt_userhost) $(_pmt_where)$(_pmt_git)$(_pmt_rvm) ${out} "
 }
