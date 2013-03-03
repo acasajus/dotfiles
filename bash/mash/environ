@@ -23,7 +23,7 @@ do
   #Remove trailing slash
   entry=$(echo $entry | sed 's:/$::g')
   #Remove /usr/local/bin
-  if [ -d "$entry" -a "$entry" != "/usr/local/bin" ]; then
+  if [ -d "$entry" ]; then
     case "$entry" in
       "/usr/local/bin") 
         ;;
@@ -37,19 +37,22 @@ do
 done
 export PATH=$(echo $newPATH | sed 's/^://g')
 
-for i in /usr/local/bin
+for i in /usr/local/bin /usr/local/sbin
 do
 	[[ -d $i ]] && export PATH=$i:$PATH
 done
 
 #RVM
-[[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+if [[ -f ~/.rvm/scripts/rvm ]]; then
+	source ~/.rvm/scripts/rvm
+	[[ -f ~/.rvm/scripts/completion ]] && source ~/.rvm/scripts/completion
+fi
 
 #PYTHONBREW
 [[ -f ~/.pythonbrew/etc/bashrc ]] && source ~/.pythonbrew/etc/bashrc
 
 #Set the home bin the first one
-for i in $HOME/bin
+for i in "$HOME/bin"
 do
 	[[ -d $i ]] && export PATH=$i:$PATH
 done

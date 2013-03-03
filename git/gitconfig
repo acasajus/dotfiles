@@ -1,6 +1,6 @@
 [user]
 	name = Adrià Casajús
-	email = acasajus@cloudjutsu.com
+	email = adriancasajus@gmail.com
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -57,3 +57,5 @@
 [achievement]
 	upload = false
 
+[push]
+	default = simple
