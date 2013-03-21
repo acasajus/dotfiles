@@ -29,7 +29,7 @@
   dt = difftool
 
 	#log
- 	log = log --decorate --graph --date=short
+	log = log --decorate --graph --date=short
 	l = log
 	changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
 	short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
@@ -48,14 +48,13 @@
 [branch]
 	autosetupmerge = true
 [diff]
-  tool = meld
+	tool = meld
 	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
 	# instead of a/b/c/d as prefixes for patches
-  mnemonicprefix = true
+	mnemonicprefix = true
 [difftool]
-  prompt = false
-[achievement]
-	upload = false
-
+	prompt = false
 [push]
 	default = simple
+[core]
+	editor = vim
