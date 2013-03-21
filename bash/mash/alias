@@ -12,3 +12,4 @@ function rbvim {
   fi
 }
 
+function mkdircd () { mkdir -p "$@" && cd "$@"; }
