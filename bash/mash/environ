@@ -7,6 +7,8 @@ export HISTFILE=$HOME/.bash_history
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 
+export EDITOR=vim
+
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
