@@ -72,6 +72,8 @@ noremap <F5> :GundoToggle<CR>
 noremap <F6> :update<CR>:e ++ff=dos<CR>:setlocal ff=unix<CR>
 " Bind F8 to TagbarToggle
 noremap <F8> :TagbarToggle<CR>
+" Bind F8 to GitGutter
+noremap <F9> :ToggleGitGutter<CR>
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -114,6 +116,8 @@ let g:Powerline_symbols="unicode"
  
 " Remember previous position
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+"Clean vim draw/artifacts
+au BufWritePost * :silent! :syntax sync fromstart<cr>:redraw!<cr>
 
 "Set the badwolf colorsheme
 colorscheme badwolf
