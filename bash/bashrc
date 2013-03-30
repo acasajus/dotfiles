@@ -1,0 +1,4 @@
+
+#Load .bash_profile, everything happens there
+
+source $HOME/.bash_profile
