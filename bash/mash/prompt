@@ -63,7 +63,7 @@ function _pmt_rvm {
 }
 
 function _pmt_userhost {
-	if [[ ${EUID} == 0 ]] ; then
+ 	if [[ ${EUID} == 0 ]] ; then
 		echo -en "${bold_red}$(hostname -s)"
 	else
 		echo -en "${green}$USER@$(hostname -s)"
@@ -91,7 +91,7 @@ case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007";PS1=$(_pmt)'
 		;;
-	screen)
+	screen*)
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\";PS1=$(_pmt)'
 		;;
 esac

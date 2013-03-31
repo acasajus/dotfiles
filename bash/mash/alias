@@ -1,4 +1,5 @@
 alias grep='grep --color=auto'
+alias tmux='tmux -2' #Force tmux to use color
 alias pyclean='find . -name "*.pyc" -exec rm {} \;'
 alias pyvim='vim $(find . -name "*.py" | grep -v -e __init__ -e setup.py )'
 #alias rbvim='vim $(find . -name "*.rb" )'
