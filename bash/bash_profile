@@ -19,7 +19,11 @@ source ${MASH_HOME}/colors
 #Load prompt
 source ${MASH_HOME}/prompt
 
+#Completion
+for comp in ${MASH_HOME}/completion/*
+do
+  source $comp
+done
+
 unset MASH_HOME
 
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
