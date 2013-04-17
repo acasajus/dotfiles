@@ -31,6 +31,11 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  if [ -f /usr/local/bin/brew -a -f $(brew --prefix)/etc/bash_completion ]; then
+   source $(brew --prefix)/etc/bash_completion
+  fi
+fi
 
 #Sanitize PATH
 newPATH=""

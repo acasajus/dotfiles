@@ -1,0 +1,44 @@
+_dirac-complete() {
+
+	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	ds="${COMP_WORDS[0]}"
+
+  cmd=$(basename $ds)
+
+	root=$(dirname $ds)
+	if [ "x" == "x$root" ]; then
+		root=$(dirname `which dirac-service`)
+	fi
+	root=$(dirname $root)
+
+	opts="-o --opt -s --section -c --cert -d --debug -h --help"
+
+	if [[ "${prev}" == "-c" ]]; then
+		COMPREPLY=(yes no)
+		return 0
+	fi
+
+	if [[ ${cur} == -* ]] ; then
+		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+		return 0
+	else
+		case "${cmd}" in
+			dirac-service) 
+				objNames=$(find $root | grep '/Service/.*Handler.py$' | awk -F/ '{ sub(/System/,""); sub(/Handler.py$/,""); print $(NF-2)"/"$(NF)}' | sort -u)
+				;;
+			dirac-agent) 
+				objNames=$(find $root | grep '/Agent/[a-zA-Z0-9]*.py$' | awk -F/ '{ sub(/System/,""); sub(/.py$/,""); print $(NF-2)"/"$(NF)}' | sort -u)
+				;;
+			dirac-executor) 
+				objNames=$(find $root | grep '/Executor/[a-zA-Z0-9]*.py$' | awk -F/ '{ sub(/System/,""); sub(/.py$/,""); print $(NF-2)"/"$(NF)}' | sort -u)
+				;;
+		esac
+		COMPREPLY=( $(compgen -W "${objNames}" -- ${cur}) )
+	fi
+}
+complete -F _dirac-complete dirac-service
+complete -F _dirac-complete dirac-agent
+complete -F _dirac-complete dirac-executor
