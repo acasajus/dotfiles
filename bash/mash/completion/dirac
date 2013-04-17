@@ -8,9 +8,10 @@ _dirac-complete() {
 
   cmd=$(basename $ds)
 
-	root=$(dirname $ds)
-	if [ "x" == "x$root" ]; then
-		root=$(dirname `which dirac-service`)
+	if [[ -e "${cmd}" ]]; then
+		root=$(dirname $ds)
+  else
+		root=$(dirname `which $cmd`)
 	fi
 	root=$(dirname $root)
 
