@@ -8,8 +8,8 @@ _dirac-complete() {
 
   cmd=$(basename $ds)
 
-	if [[ -e "${cmd}" ]]; then
-		root=$(dirname $ds)
+	if [[ -e "${ds}" ]]; then
+		root=$(dirname $cmd)
   else
 		root=$(dirname `which $cmd`)
 	fi
