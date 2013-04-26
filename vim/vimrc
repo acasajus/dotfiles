@@ -24,6 +24,7 @@ syntax on            " Enable syntax highlighting
 let mapleader=","    " Change the mapleader
 set textwidth=140    " Max textwidth
 set backspace=2      " Set backspace work like in most other apps 
+set cursorline       " Highlight the current line
 set t_ut=            " Disable Background color erase
 
 
