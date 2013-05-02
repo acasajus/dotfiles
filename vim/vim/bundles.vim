@@ -24,6 +24,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'ciaranm/detectindent'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'scrooloose/nerdcommenter'
 
 " Ruby/rails
 Bundle 'vim-ruby/vim-ruby'
