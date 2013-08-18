@@ -1,5 +1,6 @@
 .dotstate
 *.py[co]
+.rvmrc
 vim/vim/bundle
 vim/vim/swaps
 vim/vim/backups
