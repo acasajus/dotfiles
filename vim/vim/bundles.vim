@@ -24,6 +24,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'ciaranm/detectindent'
 Bundle 'airblade/vim-gitgutter'
+" leader cc
 Bundle 'scrooloose/nerdcommenter'
 
 " Ruby/rails
@@ -35,4 +36,5 @@ Bundle 'kchmck/vim-coffee-script'
 
 " :)
 filetype on
+filetype plugin on
 filetype plugin indent on
