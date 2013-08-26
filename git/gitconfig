@@ -14,19 +14,18 @@
 	st = status
 	ci = commit
 	br = branch -v
-	
+	cp = cherry-pick -x
+	mt = mergetool
+
 	#checkout
 	co = checkout
 	nb = checkout -b
-	
-	
-	cp = cherry-pick -x
 
 	#diff
 	df = diff
 	dc = diff --cached
 	last = diff HEAD^
-  dt = difftool
+	dt = difftool
 
 	#log
 	log = log --decorate --graph --date=short
@@ -39,34 +38,37 @@
 
 	#remotes
 	upr = remote update --prune
-	
+
 [format]
 	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+
 [merge]
 	summary = true
 	verbosity = 1
+	tool = kdiff3
+
 [branch]
 	autosetupmerge = true
+
 [diff]
-	tool = meld
+	tool = kdiff3
 	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
 	# instead of a/b/c/d as prefixes for patches
 	mnemonicprefix = true
 [difftool]
 	prompt = false
+
 [push]
-	#default = simple
+	default = simple
 [core]
 	editor = vim
+	pager = less -F -X
 [color]
 	ui = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+
+#shortcuts for remotes
 [url "git@github.com:"]
 	insteadOf = gh:
 [url "git@bitbucket.org:"]
 	insteadOf = bb:
+
