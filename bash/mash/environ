@@ -63,24 +63,27 @@ export PATH=$(echo $newPATH | sed 's/^://g')
 
 for i in /usr/local/bin /usr/local/sbin
 do
-	[[ -d $i ]] && export PATH=$i:$PATH
+  [[ -d $i ]] && export PATH=$i:$PATH
 done
 
 #RVM
 if [[ -f ~/.rvm/scripts/rvm ]]; then
-	source ~/.rvm/scripts/rvm
-	[[ -f ~/.rvm/scripts/completion ]] && source ~/.rvm/scripts/completion
+  source ~/.rvm/scripts/rvm
+  [[ -f ~/.rvm/scripts/completion ]] && source ~/.rvm/scripts/completion
 fi
 
 #pyenv
 if which pyenv >/dev/null 2>&1; then
-	eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 else
-	[[ -f "$HOME/.pyenv/bin" ]] && ( source "$HOME/.pyenv/bin"; eval "$(pyenv init -)" )
+  if [[ -d "$HOME/.pyenv/bin" ]]; then 
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)" 
+  fi
 fi
 
 #Set the home bin the first one
 for i in "$HOME/bin"
 do
-	[[ -d $i ]] && export PATH=$i:$PATH
+  [[ -d $i ]] && export PATH=$i:$PATH
 done
