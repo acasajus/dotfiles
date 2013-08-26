@@ -73,7 +73,7 @@ if [[ -f ~/.rvm/scripts/rvm ]]; then
 fi
 
 #pyenv
-if which pyenv 2>&1 >/dev/null; then
+if which pyenv >/dev/null 2>&1; then
 	eval "$(pyenv init -)"
 else
 	[[ -f "$HOME/.pyenv/bin" ]] && ( source "$HOME/.pyenv/bin"; eval "$(pyenv init -)" )
