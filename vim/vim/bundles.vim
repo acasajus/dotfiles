@@ -15,7 +15,6 @@ Bundle 'gmarik/vundle'
 " Plugin time!
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
-Bundle 'fholgado/minibufexpl.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'majutsushi/tagbar'
@@ -24,6 +23,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'ciaranm/detectindent'
 Bundle 'airblade/vim-gitgutter'
+" Proper formating of *ml
+Bundle 'tpope/vim-ragtag'
 " leader cc
 Bundle 'scrooloose/nerdcommenter'
 
