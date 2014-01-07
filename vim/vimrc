@@ -104,7 +104,7 @@ cmap w!! %!sudo tee > /dev/null %
 
 " Set CrtlP ignores
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage$',
+	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp$',
 	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
 	\ }
 let g:ctrlp_map = '<c-f>'

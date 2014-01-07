@@ -1,5 +1,5 @@
 [user]
-	name = Adrià Casajús
+	name = Adria Casajus
 	email = adriancasajus@gmail.com
 [color "branch"]
 	current = yellow reverse
@@ -51,7 +51,7 @@
 	autosetupmerge = true
 
 [diff]
-	tool = kdiff3
+	tool = meld
 	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
 	# instead of a/b/c/d as prefixes for patches
 	mnemonicprefix = true

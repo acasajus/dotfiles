@@ -25,5 +25,8 @@ do
   source $comp
 done
 
+#Local
+[[ -f $HOME/.bash.local ]] && source $HOME/.bash.local
+
 unset MASH_HOME
 
