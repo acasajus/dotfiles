@@ -1,31 +1,32 @@
-set nocompatible     " Disable vi-compatibility
-set laststatus=2     " Always show the statusline
-set encoding=utf-8   " Show unicode glyphs
-set number           " Show line numbers
-set esckeys          " Allow cursor keys in insert mode
-set ttyfast          " Optimize for fast terminal connections
-set gdefault         " Add the g flag to search/replace by default
-set binary           " Don't add empty newlines at end of files
-set noeol            " Don't add empty newlines at end of files
-set background=dark  " Dark bg
-set tabstop=2        " Make tabs as wide as two spaces
-set hlsearch         " Highlight searches
-set incsearch        " Highlight dynamically as pattern is typed
-set laststatus=2     " Always show status line
-set mouse=a          " Enable mouse in all modes
-set noerrorbells     " Disable error bells
-set nostartofline    " Don’t reset cursor to start of line when moving around.
-set ruler            " Show the cursor position
-set shortmess=atI    " Don’t show the intro message when starting vim
-set showmode         " Show the current mode
-set title            " Show the filename in the window titlebar
-set showcmd          " Show the (partial) command as it’s being typed
-syntax on            " Enable syntax highlighting
-let mapleader=","    " Change the mapleader
-set textwidth=140    " Max textwidth
-set backspace=2      " Set backspace work like in most other apps
-set cursorline       " Highlight the current line
-set t_ut=            " Disable Background color erase
+set nocompatible          " Disable vi-compatibility
+set laststatus=2          " Always show the statusline
+set encoding=utf-8        " Show unicode glyphs
+set number                " Show line numbers
+set esckeys               " Allow cursor keys in insert mode
+set ttyfast               " Optimize for fast terminal connections
+set gdefault              " Add the g flag to search/replace by default
+set binary                " Don't add empty newlines at end of files
+set noeol                 " Don't add empty newlines at end of files
+set background=dark       " Dark bg
+set tabstop=2             " Make tabs as wide as two spaces
+set hlsearch              " Highlight searches
+set incsearch             " Highlight dynamically as pattern is typed
+set laststatus=2          " Always show status line
+set mouse=a               " Enable mouse in all modes
+set noerrorbells          " Disable error bells
+set nostartofline         " Don’t reset cursor to start of line when moving around.
+set ruler                 " Show the cursor position
+set shortmess=atI         " Don’t show the intro message when starting vim
+set showmode              " Show the current mode
+set title                 " Show the filename in the window titlebar
+set showcmd               " Show the (partial) command as it’s being typed
+syntax on                 " Enable syntax highlighting
+let mapleader=" "         " Change the mapleader
+set textwidth=140         " Max textwidth
+set backspace=2           " Set backspace work like in most other apps
+set cursorline            " Highlight the current line
+set t_ut=                 " Disable Background color erase
+set wildmode=longest,list " Complete longest common string, then list alternatives.
 
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
