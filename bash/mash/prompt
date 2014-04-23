@@ -53,7 +53,7 @@ function _pmt_git {
 
 function _pmt_rvm {
   if which rvm-prompt &> /dev/null; then
-    rvm=$(rvm-prompt v)
+    rvm=$(rvm-prompt)
 		if [ "$rvm" == "" ]; then
 			return
 		fi
@@ -71,7 +71,7 @@ function _pmt_userhost {
 }
 
 function _pmt_where {
-	echo -ne "${cyan}${PWD/$HOME/~}"
+	echo -ne "${cyan}${PWD/$HOME/\~}"
 }
 
 function _pmt {
@@ -89,9 +89,9 @@ PS1="\u@\h \w > "
 ## Change the window title of X terminals and set PS1
 case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007";PS1=$(_pmt)'
+		PROMPT_COMMAND='PS1=$(_pmt);echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/\~}\007"'
 		;;
 	screen*)
-		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\";PS1=$(_pmt)'
+		PROMPT_COMMAND='PS1=$(_pmt);echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/\~}\033\\"'
 		;;
 esac
