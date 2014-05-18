@@ -27,6 +27,8 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-ragtag'
 " leader cc
 Bundle 'scrooloose/nerdcommenter'
+" session management
+Bundle 'tpope/vim-obsession'
 
 " Ruby/rails
 Bundle 'vim-ruby/vim-ruby'
