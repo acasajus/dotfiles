@@ -36,6 +36,15 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
 Bundle 'kchmck/vim-coffee-script'
 
+" Go
+Plugin 'fatih/vim-go'
+
+" Autocomplete
+Plugin 'Valloric/YouCompleteMe'
+
+" Snippets
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 
 " :)
 filetype on

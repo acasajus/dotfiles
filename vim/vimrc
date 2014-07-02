@@ -149,3 +149,14 @@ imap  <Left><Del>
 " Support for c++11
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+
+" Go
+let g:go_disable_autoinstall = 1
+
+" Disable tab for YCM since up/down will work 
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
