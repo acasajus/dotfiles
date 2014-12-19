@@ -105,9 +105,16 @@ cmap w!! %!sudo tee > /dev/null %
 
 " Set CrtlP ignores
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp$',
+	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp|Godeps$',
 	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
 	\ }
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files'],
+    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+  \ 'fallback': 'find %s -type f'
+  \ }
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_extensions = ['cmdline', 'yankring']
 
@@ -150,13 +157,33 @@ imap  <Left><Del>
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-
 " Go
 let g:go_disable_autoinstall = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
 
 " Disable tab for YCM since up/down will work 
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'qf' : 1,
+      \ 'notes' : 1,
+      \ 'markdown' : 1,
+      \ 'unite' : 1,
+      \ 'text' : 1,
+      \ 'vimwiki' : 1,
+      \ 'pandoc' : 1,
+      \ 'infolog' : 1,
+      \ 'mail' : 1,
+      \ 'sql' : 1
+      \}
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" Indenting
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set textwidth=140
+set expandtab
