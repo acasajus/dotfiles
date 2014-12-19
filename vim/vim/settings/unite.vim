@@ -18,10 +18,9 @@ nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
 nnoremap <leader>/ :Unite grep:.<cr> 
 
 " Ignore .git dir
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-      \ 'ignore_pattern', join([
-      \ '\.git/', '\.hg/', 'Godeps/', '\.pyc', '\.pyo', '\.class', '\.o', '\.~'
-      \ ], '\|'))
+call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',  'ignore_pattern', join([ 
+      \ '\.git\/', '\.hg\/', 'Godeps\/', '\.pyc$', '\.pyo$', '\.o$', '\.class$'
+      \  ], '\|'))
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
