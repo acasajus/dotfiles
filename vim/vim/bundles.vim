@@ -3,50 +3,83 @@
 filetype on
 filetype off
 
-" Set the runtime path
-set rtp+=~/.vim/bundle/vundle
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
 
-" Init Vundle
-call vundle#rc()
+  " Set the runtime path
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-" Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-" Plugin time!
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/YankRing.vim'
-Bundle 'ciaranm/detectindent'
-Bundle 'airblade/vim-gitgutter'
-" Proper formating of *ml
-Bundle 'tpope/vim-ragtag'
-" leader cc
-Bundle 'scrooloose/nerdcommenter'
-" session management
-Bundle 'tpope/vim-obsession'
+let g:make = 'gmake'
+if system('uname -o') =~ '^GNU/'
+  let g:make = 'make'
+endif
 
-" Ruby/rails
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'kchmck/vim-coffee-script'
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Interactive command execution
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'tools\\update-dll-mingw',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
+      \    },
+      \ }
+" Unite power!
+NeoBundle 'Shougo/unite.vim'
+" Neocomplete
+NeoBundle 'Shougo/neocomplete.vim'
+" ?
+NeoBundle 'Shougo/neomru.vim'
+
+" Status line
+NeoBundle 'bling/vim-airline'
+
+" Vim-Git
+NeoBundle 'tpope/vim-fugitive'
+"Syntax magic && checks
+NeoBundle 'scrooloose/syntastic'
+"left bar with in-file logic nav
+NeoBundle 'majutsushi/tagbar'
+"Surround
+NeoBundle 'tpope/vim-surround'
+"Yankring
+NeoBundle 'vim-scripts/YankRing.vim'
+"git marks in the gugter
+NeoBundle 'airblade/vim-gitgutter'
+
+"Proper formating of *ml
+NeoBundle 'tpope/vim-ragtag'
+"leader cc
+NeoBundle 'scrooloose/nerdcommenter'
+
+" Multiple cursors
+NeoBundle 'terryma/vim-multiple-cursors'
 
 " Go
-Plugin 'fatih/vim-go'
+NeoBundle 'fatih/vim-go'
 
 " Autocomplete
-Plugin 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe'
 
-" Snippets
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+
+call neobundle#end()
+
 
 " :)
 filetype on
 filetype plugin on
 filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck

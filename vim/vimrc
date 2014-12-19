@@ -43,6 +43,21 @@ endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+" Manage plugins
+if filereadable(expand("~/.vim/bundles.vim"))
+    source ~/.vim/bundles.vim
+endif
+" This loads the settings of the bundles
+for fpath in split(globpath('~/.vim/settings', '*.vim'), '\n')
+    exe 'source' fpath
+  endfor
+
+" Use local vimrc if available {
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+
+
 " Remap ctrl + hjkl to move between panes
 map <silent> <c-k> <C-W>k  
 map <silent> <c-j> <C-W>j
@@ -62,9 +77,6 @@ autocmd BufWritePre *.py call StripWhitespace()
 
 " Better buffer management
 map <silent> <leader>b :buffers<CR>:buffer<Space>
-
-" Vundle!
-source ~/.vim/bundles.vim
 
 map <silent> <F1> :buffers<CR>:buffer<Space>
 " Bind F2 to show 'invisible' chars
@@ -86,10 +98,7 @@ map <silent> <F9> :ToggleGitGutter<CR>
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
-" select previously yanked line
-nnoremap <leader>v V`]
-
-" Map the arrow keys to be based on display lines, not physical lines
+"Map the arrow keys to be based on display lines, not physical lines
 noremap <Down> gj
 noremap <Up> gk
 
@@ -102,32 +111,6 @@ map <Leader>= <C-w>=
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
-
-" Set CrtlP ignores
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp|Godeps$',
-	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
-	\ }
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
-let g:ctrlp_map = '<c-f>'
-let g:ctrlp_extensions = ['cmdline', 'yankring']
-
-"Yankring
-let g:yankring_history_dir = '~/.vim/swaps'
-let g:yankring_history_file = 'yankring.hist'
-
-"Supertab magic
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menu
-
-" Unicode powerline
-let g:Powerline_symbols="unicode"
 
 " Remember previous position
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
@@ -152,34 +135,6 @@ endif
 
 " Backspace madness
 imap  <Left><Del>
-
-" Support for c++11
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-" Go
-let g:go_disable_autoinstall = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-
-" Disable tab for YCM since up/down will work 
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'pandoc' : 1,
-      \ 'infolog' : 1,
-      \ 'mail' : 1,
-      \ 'sql' : 1
-      \}
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 " Indenting
 set tabstop=2

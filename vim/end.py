@@ -10,8 +10,8 @@ for dName in ( "backups", "swaps", "undo", "bundle" ):
   if not os.path.isdir( dName ):
     os.makedirs( dName )
 
-vundleDir = os.path.join( vimDir, "bundle", "vundle" )
+vundleDir = os.path.join( vimDir, "bundle", "neobundle.vim" )
 if not os.path.isdir( vundleDir ):
-  os.system( "git clone https://github.com/gmarik/vundle.git '{}'".format( vundleDir ) )
-os.system( "vim +BundleInstall +qa" )
+  os.system( "git clone https://github.com/Shougo/neobundle.vim '{}'".format( vundleDir ) )
+os.system( "vim +NeoBundleInstall +qa" )
 
