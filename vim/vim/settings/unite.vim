@@ -7,13 +7,13 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " Ctrp-p replacement
 nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files  -start-insert file_rec/async:!<cr>
-nnoremap <leader>P :<C-u>Unite -no-split -buffer-name=files  -start-insert file_rec/git:!<cr>
+nnoremap <leader>g :<C-u>Unite -no-split -buffer-name=files  -start-insert file_rec/git<cr>
 nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files  -start-insert file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru    -start-insert file_mru<cr>
+nnoremap <leader>m :<C-u>Unite -no-split -buffer-name=mru    -start-insert file_mru<cr>
 " nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank   history/yank<cr>
-"Buffer switch
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
+" Buffer switch
+nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
 " Search in files
 nnoremap <leader>/ :Unite grep:.<cr> 
 

@@ -71,6 +71,10 @@ NeoBundle 'fatih/vim-go'
 " Autocomplete
 "NeoBundle 'Valloric/YouCompleteMe'
 
+" Coffeescript
+NeoBundle 'kchmck/vim-coffee-script'
+
+
 
 call neobundle#end()
 

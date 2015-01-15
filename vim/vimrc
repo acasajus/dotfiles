@@ -75,8 +75,8 @@ endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 autocmd BufWritePre *.py call StripWhitespace()
 
-" Better buffer management
-map <silent> <leader>b :buffers<CR>:buffer<Space>
+" Better buffer management (superseeded by unite)
+" map <silent> <leader>b :buffers<CR>:buffer<Space>
 
 map <silent> <F1> :buffers<CR>:buffer<Space>
 " Bind F2 to show 'invisible' chars
