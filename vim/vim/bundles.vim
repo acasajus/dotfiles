@@ -57,13 +57,8 @@ NeoBundle 'vim-scripts/YankRing.vim'
 "git marks in the gugter
 NeoBundle 'airblade/vim-gitgutter'
 
-"Proper formating of *ml
-NeoBundle 'tpope/vim-ragtag'
 "leader cc
 NeoBundle 'scrooloose/nerdcommenter'
-
-" Multiple cursors
-NeoBundle 'terryma/vim-multiple-cursors'
 
 " Go
 NeoBundle 'fatih/vim-go'
@@ -81,8 +76,8 @@ call neobundle#end()
 
 " :)
 filetype on
-filetype plugin on
-filetype plugin indent on
+" filetype plugin on
+" filetype plugin indent on
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.

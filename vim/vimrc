@@ -8,7 +8,6 @@ set gdefault              " Add the g flag to search/replace by default
 set binary                " Don't add empty newlines at end of files
 set noeol                 " Don't add empty newlines at end of files
 set background=dark       " Dark bg
-set tabstop=2             " Make tabs as wide as two spaces
 set hlsearch              " Highlight searches
 set incsearch             " Highlight dynamically as pattern is typed
 set laststatus=2          " Always show status line
@@ -141,4 +140,9 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set textwidth=140
-set expandtab
+
+" Long lines prob
+set synmaxcol=128
+set ttyfast " Got a fast terminal
+set ttyscroll=3
+set lazyredraw " Avoid scrolling problems
