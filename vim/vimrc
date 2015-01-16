@@ -39,6 +39,11 @@ if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
 
+" Indent
+set autoindent
+set smartindent
+set cindent
+
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
@@ -46,16 +51,10 @@ set scrolloff=3
 if filereadable(expand("~/.vim/bundles.vim"))
     source ~/.vim/bundles.vim
 endif
-" This loads the settings of the bundles
-for fpath in split(globpath('~/.vim/settings', '*.vim'), '\n')
-    exe 'source' fpath
-  endfor
-
 " Use local vimrc if available {
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
 
 " Remap ctrl + hjkl to move between panes
 map <silent> <c-k> <C-W>k  
@@ -142,7 +141,15 @@ set shiftwidth=2
 set textwidth=140
 
 " Long lines prob
-set synmaxcol=128
+set synmaxcol=250
 set ttyfast " Got a fast terminal
 set ttyscroll=3
 set lazyredraw " Avoid scrolling problems
+
+" Filetype enable
+filetype on
+filetype off
+filetype plugin indent on
+filetype plugin on
+filetype indent on
+filetype on
