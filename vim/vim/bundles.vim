@@ -22,22 +22,17 @@ endif
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Interactive command execution
-NeoBundle 'Shougo/vimproc.vim', {
-			\ 'build' : {
-			\     'windows' : 'tools\\update-dll-mingw',
-			\     'cygwin' : 'make -f make_cygwin.mak',
-			\     'mac' : 'make -f make_mac.mak',
-			\     'linux' : 'make',
-			\     'unix' : 'gmake',
-			\    },
-			\ }
-" Unite power!
-NeoBundle 'Shougo/unite.vim'
-" Neocomplete
-NeoBundle 'Shougo/neocomplete.vim'
-" ?
-NeoBundle 'Shougo/neomru.vim'
+" Completion
+NeoBundle 'Valloric/YouCompleteMe', { 'build' : { 'mac' : './install.sh --clang-completer', 'unix' : './install.sh --clang-completer' } }
+
+" Buffer mamangement
+NeoBundle 'jeetsukumaran/vim-buffergator'
+
+" The silver searcher!
+NeoBundle 'rking/ag.vim'
+
+" Ctrl+P
+NeoBundle 'kien/ctrlp.vim'
 
 " Status line
 NeoBundle 'bling/vim-airline'

@@ -149,7 +149,7 @@ set lazyredraw " Avoid scrolling problems
 " Filetype enable
 filetype on
 filetype off
-filetype plugin indent on
-filetype plugin on
-filetype indent on
 filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
