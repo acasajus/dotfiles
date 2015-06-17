@@ -34,9 +34,6 @@ NeoBundle 'rking/ag.vim'
 " Ctrl+P
 NeoBundle 'kien/ctrlp.vim'
 
-" Status line
-NeoBundle 'bling/vim-airline'
-
 " Vim-Git
 NeoBundle 'tpope/vim-fugitive'
 "Syntax magic && checks
@@ -64,6 +61,9 @@ NeoBundle 'kchmck/vim-coffee-script'
 
 " Match-it
 NeoBundle 'tmhedberg/matchit'
+
+" Status line
+NeoBundle 'bling/vim-airline'
 
 call neobundle#end()
 
