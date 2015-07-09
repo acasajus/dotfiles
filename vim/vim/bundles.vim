@@ -65,6 +65,12 @@ NeoBundle 'tmhedberg/matchit'
 " Status line
 NeoBundle 'bling/vim-airline'
 
+" Easy motion
+NeoBundle 'Lokaltog/vim-easymotion'
+
+" tmux nav
+NeoBundle 'christoomey/vim-tmux-navigator'
+
 call neobundle#end()
 
 

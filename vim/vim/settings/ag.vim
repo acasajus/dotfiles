@@ -1,1 +1,1 @@
-nnoremap <leader>/ :Ag<cr>
+nnoremap <leader>/ :Ag<space>

@@ -63,6 +63,7 @@ function _pmt_rvm {
 }
 
 function _pmt_userhost {
+	echo -en "${purple}${PROMPT_PREFIX}"
  	if [[ ${EUID} == 0 ]] ; then
 		echo -en "${bold_red}$(hostname -s)"
 	else

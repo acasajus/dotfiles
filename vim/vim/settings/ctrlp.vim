@@ -1,5 +1,5 @@
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp$',
+	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp|vendor$',
 	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
 	\ }
 let g:ctrlp_extensions = ['cmdline', 'yankring', 'undo']

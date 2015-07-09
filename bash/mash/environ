@@ -86,6 +86,8 @@ fi
 [[ -d '/Applications/Postgres.app/Contents/MacOS/bin' ]] && export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
 #MySQL.app
 [[ -d '/usr/local/mysql/bin' ]] && export PATH="/usr/local/mysql/bin:$PATH"
+#Go
+[[ -d '/usr/local/opt/go/libexec/bin' ]] && export PATH="/usr/local/opt/go/libexec/bin:$PATH"
 
 #Set the home bin the first one
 for i in "$HOME/bin"
