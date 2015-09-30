@@ -32,7 +32,7 @@ NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'rking/ag.vim'
 
 " Ctrl+P
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 
 " Vim-Git
 NeoBundle 'tpope/vim-fugitive'
@@ -42,8 +42,6 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'majutsushi/tagbar'
 "Surround
 NeoBundle 'tpope/vim-surround'
-"Yankring
-NeoBundle 'vim-scripts/YankRing.vim'
 "git marks in the gugter
 NeoBundle 'airblade/vim-gitgutter'
 
@@ -53,14 +51,15 @@ NeoBundle 'scrooloose/nerdcommenter'
 " Go
 NeoBundle 'fatih/vim-go'
 
-" Autocomplete
-"NeoBundle 'Valloric/YouCompleteMe'
-
 " Coffeescript
 NeoBundle 'kchmck/vim-coffee-script'
 
-" Match-it
-NeoBundle 'tmhedberg/matchit'
+" HTML/XML
+NeoBundle 'othree/xml.vim'
+
+" JSX
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
 
 " Status line
 NeoBundle 'bling/vim-airline'
@@ -87,4 +86,3 @@ NeoBundleCheck
 for fpath in split(globpath('~/.vim/settings', '*.vim'), '\n')
 	exe 'source' fpath
 endfor
-

@@ -29,7 +29,7 @@
 
 	#log
 	log = log --decorate --graph --date=short
-	l = log
+	l = log --pretty=full
 	changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
 	short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
 	changelog = log --pretty=format:\" * %s\"
