@@ -30,6 +30,9 @@ class ModuleConf( object ):
     except IOError:
       pass
 
+  def ignoreFiles( self ):
+    return [ f for f in [ self.moduleScript(), self.postDeployScript() ] if f ]
+
   def moduleScript( self ):
     """
     Instead of deploying module, run this script
@@ -72,7 +75,8 @@ class ModuleConf( object ):
 
 class Dotployer( object ):
 
-  def __init__( self, dotSource = False ):
+  def __init__( self, dotSource = False, modFilter = []):
+    self.modFilter = modFilter
     if dotSource:
       self.dotSoruce = dotSource
     else:
@@ -90,15 +94,19 @@ class Dotployer( object ):
       entryPath = os.path.join( self.dotSource, entry )
       if not os.path.isdir( entryPath ):
         continue
+      if self.modFilter and entry not in self.modFilter:
+        continue
       yield entry
 
-  def __linkContents( self, sourceDir, dotLevels = 1, linkPrefix = "", subPath = "" ):
+  def __linkContents( self, sourceDir, dotLevels = 1, linkPrefix = "", subPath = "", ignoreFiles = [] ):
     """
     Link from dotSource/moduleName to the user dir
     """
     logging.info( "Exploring {} to link".format( sourceDir ) )
     for entryName in os.listdir( sourceDir ):
       if entryName in ( '.git', 'dotploy.cfg' ):
+        continue
+      if entryName in ignoreFiles:
         continue
       entryPath = os.path.realpath( os.path.join( sourceDir, entryName ) )
       destBase = os.path.expanduser( os.path.join( '~', linkPrefix, subPath ) )
@@ -157,7 +165,8 @@ class Dotployer( object ):
 
     self.__linkContents( modulePath,
                          modConf.linkDotLevels(),
-                         linkPrefix )
+                         linkPrefix,
+                         ignoreFiles = modConf.ignoreFiles() )
     postDeploy = modConf.postDeployScript()
     if postDeploy:
       postDeploy = os.path.join( modulePath, postDeploy )
@@ -178,6 +187,6 @@ if __name__ == "__main__":
     logging.basicConfig( level = logging.DEBUG )
   else:
     logging.basicConfig( level = logging.INFO )
-  Dotployer().work()
+  Dotployer(modFilter = sys.argv[1:]).work()
 
 
