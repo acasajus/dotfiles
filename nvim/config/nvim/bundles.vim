@@ -52,7 +52,7 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'fatih/vim-go'
 
 " HTML/XML
-NeoBundle 'othree/xml.vim'
+NeoBundle 'othree/html5.vim'
 
 " JSX
 NeoBundle 'pangloss/vim-javascript'
