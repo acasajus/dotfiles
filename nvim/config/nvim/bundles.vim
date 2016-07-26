@@ -23,7 +23,7 @@ endif
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Completion
-NeoBundle 'Valloric/YouCompleteMe', { 'build' : { 'mac' : './install.sh --clang-completer', 'unix' : './install.sh --clang-completer' } }
+NeoBundle 'Valloric/YouCompleteMe', { 'build' : { 'mac' : './install.py --clang-completer', 'unix' : './install.py --clang-completer' } }
 
 " Buffer mamangement
 NeoBundle 'jeetsukumaran/vim-buffergator'
