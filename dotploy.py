@@ -154,7 +154,7 @@ class Dotployer( object ):
     if modScript:
       modScript = os.path.join( modulePath, modScript )
       if os.system( modScript ) != 0:
-        log.info( "{} failed".format( modScript ) )
+        logging.info( "{} failed".format( modScript ) )
         sys.exit( 1 )
       return
 
@@ -171,7 +171,7 @@ class Dotployer( object ):
     if postDeploy:
       postDeploy = os.path.join( modulePath, postDeploy )
       if os.system( postDeploy ) != 0:
-        log.info( "{} failed".format( postDeploy ) )
+        logging.info( "{} failed".format( postDeploy ) )
         sys.exit( 1 )
 
 
@@ -179,8 +179,6 @@ class Dotployer( object ):
     for moduleName in self.__modules():
       logging.info( "Deploying module {}".format( moduleName ) )
       self.__processModule( moduleName )
-
-
 
 if __name__ == "__main__":
   if '-d' in sys.argv:

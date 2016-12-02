@@ -11,8 +11,9 @@ for dName in ( "backups", "swaps", "undo", "plugins" ):
   if not os.path.isdir( dName ):
     os.makedirs( dName )
 
-vundleDir = os.path.join( vimDir, "plugins", "neobundle.vim" )
-if not os.path.isdir( vundleDir ):
-  os.system( "git clone https://github.com/Shougo/neobundle.vim '{}'".format( vundleDir ) )
-os.system( "nvim +NeoBundleInstall +qa" )
+vundleDir = os.path.join( vimDir, "plugins" )
+os.system( "curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > {}/installer.sh".format( vundleDir ) )
+os.system( "sh {}/installer.sh {}".format( vundleDir, vundleDir ) )
+os.unlink( os.path.join( vundleDir, "installer.sh" ) )
+os.system( "nvim +'call dein#install()' +qa" )
 
