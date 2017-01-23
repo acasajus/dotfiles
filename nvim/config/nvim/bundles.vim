@@ -51,6 +51,12 @@ Plug 'bling/vim-airline'
 " Easy motion
 Plug 'easymotion/vim-easymotion'
 
+" Gutentags
+Plug 'ludovicchabant/vim-gutentags'
+
+" lldb
+Plug 'critiqjo/lldb.nvim'
+
 
 call plug#end()
 

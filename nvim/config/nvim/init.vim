@@ -127,6 +127,7 @@ if os=="Darwin"
 	map <Esc>[B <Down>
 	map <Esc>[C <Right>
 	map <Esc>[D <Left>
+	let g:python_host_path='/usr/local/bin/python2'
 endif
 
 " Backspace madness
@@ -173,3 +174,11 @@ endif
 :tnoremap <C-j> <C-\><C-n><C-w>j
 :tnoremap <C-k> <C-\><C-n><C-w>k
 :tnoremap <C-l> <C-\><C-n><C-w>l
+
+" Tweaks for browsing
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
