@@ -26,7 +26,7 @@ Plug 'tpope/vim-fugitive'
 "Syntax magic && checks
 Plug 'neomake/neomake'
 "left bar with in-file logic nav
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 "Surround
 Plug 'tpope/vim-surround'
 "git marks in the gugter
@@ -35,15 +35,15 @@ Plug 'airblade/vim-gitgutter'
 "leader cc
 Plug 'scrooloose/nerdcommenter'
 
-" Go
+" Go (included in Polyglot)
 Plug 'fatih/vim-go'
 
-" HTML/XML
+" HTML/XML (Polyglot)
 Plug 'othree/html5.vim'
 
-" JSX
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" JS
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " Status line
 Plug 'bling/vim-airline'
@@ -57,6 +57,8 @@ Plug 'ludovicchabant/vim-gutentags'
 " lldb
 Plug 'critiqjo/lldb.nvim'
 
+" Nerdtree
+Plug 'scrooloose/nerdtree'
 
 call plug#end()
 
