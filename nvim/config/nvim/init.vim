@@ -1,7 +1,6 @@
 set laststatus=2          " Always show the statusline
 set encoding=utf-8        " Show unicode glyphs
 set number                " Show line numbers
-set esckeys               " Allow cursor keys in insert mode
 set ttyfast               " Optimize for fast terminal connections
 set gdefault              " Add the g flag to search/replace by default
 set binary                " Don't add empty newlines at end of files

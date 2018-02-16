@@ -60,6 +60,9 @@ Plug 'critiqjo/lldb.nvim'
 " Nerdtree
 Plug 'scrooloose/nerdtree'
 
+" Colorschemes
+Plug 'tomasr/molokai'
+
 call plug#end()
 
 " This loads the settings of the bundles
