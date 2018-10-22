@@ -1,6 +1,3 @@
-
-#* GENERAL **
-
 #Editor
 export EDITOR=nvim
 
@@ -59,11 +56,6 @@ shopt -s autocd
 shopt -s dirspell
 # Correct spelling errors in arguments supplied to cd
 shopt -s cdspell
-
-# This defines where cd looks for targets
-# Add the directories you want to have fast access to, separated by colon
-# Ex: CDPATH=".:~:~/projects" will look for targets in the current working directory, in home and in the ~/projects folder
-# CDPATH="."
 
 # This allows you to bookmark your favorite places across the file system
 # Define a variable containing a path and you will be able to cd into it regardless of the directory you're in
@@ -152,3 +144,6 @@ if [ "$(uname)" == "Darwin" ]; then
      . $(brew --prefix)/etc/bash_completion
   fi
 fi
+
+#FZF
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

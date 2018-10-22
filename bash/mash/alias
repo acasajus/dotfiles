@@ -25,3 +25,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+if which ncdu >/dev/null 2>&1; then
+	alias du="ncdu --color dark"
+fi
+
+

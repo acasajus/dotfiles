@@ -1,6 +1,6 @@
 set laststatus=2          " Always show the statusline
 set encoding=utf-8        " Show unicode glyphs
-set number                " Show line numbers
+set number relativenumber " Show relative line numbers
 set ttyfast               " Optimize for fast terminal connections
 set gdefault              " Add the g flag to search/replace by default
 set binary                " Don't add empty newlines at end of files
@@ -119,14 +119,29 @@ colorscheme badwolf
 let $GIT_SSL_NO_VERIFY = 'true'
 
 " Darwincrap
-let os=system("uname")
-if os=="Darwin"
+let os = ""
+if has("win32")
+  let os="win"
+else
+  if has("unix")
+    let s:uname = system("echo -n \"$(uname)\"")
+    if s:uname == "Darwin"
+      let os="mac"
+    else
+      let os="unix"
+    endif
+  endif
+endif
+
+if os == "mac"
 	" Cmd+R messes up arrows
 	map <Esc>[A <Up>
 	map <Esc>[B <Down>
 	map <Esc>[C <Right>
 	map <Esc>[D <Left>
-	let g:python_host_path='/usr/local/bin/python2'
+	let g:python_host_prog = '/usr/local/opt/python@2/bin/python2'
+	let g:python2_host_prog = '/usr/local/opt/python@2/bin/python2'
+	let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
 " Backspace madness
