@@ -45,6 +45,10 @@ Plug 'othree/html5.vim'
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
+" typescript
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+
 " Dart
 Plug 'dart-lang/dart-vim-plugin'
 
