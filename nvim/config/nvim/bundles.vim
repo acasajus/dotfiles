@@ -142,7 +142,7 @@ let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\
 let g:lsc_enable_autocomplete = v:true
 let g:lsc_server_commands = {
 	\ 'dart': 'dart_language_server',
-	\ 'go': 'go-langserver -gocodecompletion -maxparallelism 5 -mode stdio',
+	\ 'go': 'go-langserver -gocodecompletion -maxparallelism 5 -mode stdio -lint-tool golint',
 	\ 'vue': 'vls',
 	\ 'javascript': 'javascript-typescript-stdio'
 	\ }
