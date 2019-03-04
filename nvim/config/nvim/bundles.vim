@@ -16,10 +16,14 @@ endif
 Plug 'jeetsukumaran/vim-buffergator'
 
 " The silver searcher!
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 
 " Ctrl+P
 Plug 'ctrlpvim/ctrlp.vim'
+
+" FZF
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Vim-Git
 Plug 'tpope/vim-fugitive'
@@ -76,7 +80,7 @@ Plug 'scrooloose/nerdtree'
 call plug#end()
 
 "Ag
-nnoremap <leader>/ :Ag<space>
+" nnoremap <leader>/ :Ag<space>
 
 " Airline
 let g:airline#extensions#tabline#enabled = 0
@@ -93,8 +97,8 @@ let g:airline#powerline#fonts = 0
 let g:airline#theme = 'badwolf'
 
 " Buffergator
-let g:buffergator_viewport_split_policy="B"
-let g:buffergator_sort_regime="mru"
+" let g:buffergator_viewport_split_policy="B"
+" let g:buffergator_sort_regime="mru"
 
 " CtrlP
 let g:ctrlp_custom_ignore = {
@@ -111,6 +115,12 @@ let g:ctrlp_user_command = {
 	\ }
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlP'
+
+" FZF
+nnoremap <leader>/ :Ag<space>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>gf :GFiles<CR>
 
 " Deoplete
 " let g:deoplete#enable_at_startup = 1
