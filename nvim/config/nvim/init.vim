@@ -18,7 +18,7 @@ set showmode              " Show the current mode
 set title                 " Show the filename in the window titlebar
 set showcmd               " Show the (partial) command as it’s being typed
 syntax on                 " Enable syntax highlighting
-let mapleader=" "         " Change the mapleader
+let mapleader="\<Space>"         " Change the mapleader
 set textwidth=140         " Max textwidth
 set backspace=2           " Set backspace work like in most other apps
 set cursorline            " Highlight the current line
@@ -41,13 +41,11 @@ set autoindent
 set smartindent
 set cindent
 
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
-
 " Manage plugins
 if filereadable(expand("~/.config/nvim/bundles.vim"))
 	source ~/.config/nvim/bundles.vim
 endif
+
 " Use local vimrc if available {
 if filereadable(expand("~/.vimrc.local"))
 	source ~/.vimrc.local
@@ -68,27 +66,16 @@ function! StripWhitespace()
 	call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
-autocmd BufWritePre *.py call StripWhitespace()
 
-" Better buffer management (superseeded by unite)
-" map <silent> <leader>b :buffers<CR>:buffer<Space>
-
-map <silent> <F1> :buffers<CR>:buffer<Space>
-" Bind F2 to show 'invisible' chars
-map <silent> <F2> :set invlist<CR>:set list?<CR>
+" Bind F1 to show 'invisible' chars
+map <silent> <F1> :set invlist<CR>:set list?<CR>
 " Bind F3 to show line numbers
 map <silent> <F3> :set invnumber<CR>:set number?<CR>
 " Bind F4 to toggle Paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
-" Bind F5 to GUndo
-map <silent> <F5> :GundoToggle<CR>
 " Make a dos2unix
 map <silent> <F6> :update<CR>:e ++ff=dos<CR>:setlocal ff=unix<CR>
-" Bind F8 to TagbarToggle
-map <silent> <F8> :TagbarToggle<CR>
-" Bind F8 to GitGutter
-map <silent> <F9> :ToggleGitGutter<CR>
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -163,8 +150,6 @@ set lazyredraw " Avoid scrolling problems
 
 " Filetype enable
 filetype on
-filetype off
-filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
@@ -189,10 +174,12 @@ endif
 :tnoremap <C-k> <C-\><C-n><C-w>k
 :tnoremap <C-l> <C-\><C-n><C-w>l
 
-" Tweaks for browsing
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+if has('nvim')
+    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+    set inccommand=nosplit
+    noremap <C-q> :confirm qall<CR>
+end
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+

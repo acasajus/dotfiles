@@ -2,93 +2,50 @@ if &compatible
 	set nocompatible            " Be iMproved
 endif
 
-call plug#begin(expand('~/.config/nvim/plugins/.'))
+call plug#begin(expand('~/.config/nvim/plugged'))
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
 	let g:make = 'make'
 endif
 
-" Completion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" Buffer mamangement
-Plug 'jeetsukumaran/vim-buffergator'
+" Vim enhancements
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
 
-" The silver searcher!
-" Plug 'rking/ag.vim'
+" GUI
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'machakann/vim-highlightedyank'
+Plug 'andymass/vim-matchup'
+Plug 'airblade/vim-gitgutter'
 
-" Ctrl+P
-Plug 'ctrlpvim/ctrlp.vim'
-
-" FZF
+" Fuzzy finder
+Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Vim-Git
-Plug 'tpope/vim-fugitive'
-"Syntax magic && checks
-Plug 'neomake/neomake'
+" Semantic language
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
-"Surround
-Plug 'tpope/vim-surround'
-"git marks in the gugter
-Plug 'airblade/vim-gitgutter'
-
-"leader cc
-Plug 'scrooloose/nerdcommenter'
-
-" Go (included in Polyglot)
-" Plug 'zchee/deoplete-go'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" HTML/XML (Polyglot)
+" Language support
+Plug 'fatih/vim-go'
 Plug 'othree/html5.vim'
-
-" JS
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-
-" typescript
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 
-" Dart
-Plug 'dart-lang/dart-vim-plugin'
-
-" lsc
-Plug 'natebosch/vim-lsc'
-
-" Status line
-Plug 'bling/vim-airline'
-
-" Easy motion
-Plug 'easymotion/vim-easymotion'
-
-" Gutentags
-" Plug 'ludovicchabant/vim-gutentags'
-
-" lldb
-" Plug 'critiqjo/lldb.nvim'
-
-" Nerdtree
-Plug 'scrooloose/nerdtree'
-
-" Colorschemes
-" Plug 'tomasr/molokai'
-
 call plug#end()
 
-"Ag
-" nnoremap <leader>/ :Ag<space>
 
 " Airline
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 let g:airline#extensions#quickfix#location_text = 'Location'
@@ -96,35 +53,37 @@ let g:airline#extensions#whitespace#enabled = 1
 let g:airline#powerline#fonts = 0
 let g:airline#theme = 'badwolf'
 
-" Buffergator
-" let g:buffergator_viewport_split_policy="B"
-" let g:buffergator_sort_regime="mru"
+" fzf
+let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_buffers_jump = 1
 
-" CtrlP
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\.git$\|\.hg$\|\.svn$|coverage|tmp|vendor$',
-	\ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
-	\ }
-let g:ctrlp_extensions = ['cmdline', 'yankring', 'undo']
-let g:ctrlp_user_command = {
-	\ 'types': {
-		\ 1: ['.git', 'cd %s && git ls-files'],
-		\ 2: ['.hg', 'hg --cwd %s locate -I .'],
-		\ },
-	\ 'fallback': 'find %s -type f'
-	\ }
-let g:ctrlp_map = '<c-f>'
-let g:ctrlp_cmd = 'CtrlP'
-
-" FZF
-nnoremap <leader>/ :Ag<space>
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+  nnoremap <leader>/ :Ag<space>
+endif
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+  nnoremap <leader>/ :Rg<space>
+endif 
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>gf :GFiles<CR>
 
-" Deoplete
-" let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('ignore_sources', {'_': ['*.vue', 'buffer', '*.dart']})
+" Semantic
+let g:deoplete#enable_at_startup = 2
+set hidden
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
+let g:LanguageClient_loggingLevel = 'DEBUG'
+let g:LanguageClient_serverStderr = expand('~/.vim/LanguageClient.err')
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Go
 let g:go_disable_autoinstall = 1
@@ -136,17 +95,6 @@ let g:go_fmt_command = "goimports"
 " Dart
 let dart_format_on_save = 1
 let dart_style_guide = 2
-
-" Neomake
-nnoremap <leader>m :Neomake<CR> 
-let g:neomake_cpp_enable_makers = ['clang']
-let g:neomake_cpp_clang_args = ["-std=c++11", "-Wextra", "-Wall", "-fsanitize=undefined","-g","-I/usr/local/Cellar/boost/1.58.0/include","-I/usr/local/include/","-stdlib=libc++"]
-"Open the window automatically when Neomake is run, but without moving your cursor
-let g:neomake_open_list = 2
-"autocmd! BufWritePost,BufEnter * Neomake
-let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
 " LSC
 let g:lsc_enable_autocomplete = v:true
@@ -168,3 +116,4 @@ let g:lsc_auto_map = {
     \ 'ShowHover': 'K',
     \ 'Completion': 'completefunc',
     \}
+
