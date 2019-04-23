@@ -109,12 +109,6 @@ do
   [[ -d $i ]] && export PATH=$i:$PATH
 done
 
-#RVM
-if [[ -f ~/.rvm/scripts/rvm ]]; then
-  source ~/.rvm/scripts/rvm
-  [[ -f ~/.rvm/scripts/completion ]] && source ~/.rvm/scripts/completion
-fi
-
 #pyenv
 if which pyenv >/dev/null 2>&1; then
   eval "$(pyenv init -)"
@@ -146,4 +140,14 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 #FZF
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+  if wich fd >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fd --type f'
+  else
+    if which rg >/dev/null 2>&1; then
+      export FZF_DEFAULT_COMMAND='rg --files'
+    fi
+  fi
+fi
+
