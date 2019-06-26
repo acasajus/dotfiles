@@ -79,6 +79,8 @@ let g:LanguageClient_loggingLevel = 'DEBUG'
 let g:LanguageClient_serverStderr = expand('~/.vim/LanguageClient.err')
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+		\ 'python': ['/usr/local/bin/pyls'],
+		\ 'go': ['gopls'],
     \ }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
