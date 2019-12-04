@@ -21,17 +21,17 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 Plug 'airblade/vim-gitgutter'
 
+" Semantic language
+Plug 'autozimu/LanguageClient-neovim', {
+			\ 'branch': 'next',
+			\ 'do': 'bash install.sh',
+			\ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" Semantic language
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 " Language support
 Plug 'fatih/vim-go'
@@ -39,7 +39,9 @@ Plug 'othree/html5.vim'
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'fatih/vim-hclfmt'
+Plug 'b4b4r07/vim-hcl'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -53,18 +55,21 @@ let g:airline#extensions#whitespace#enabled = 1
 let g:airline#powerline#fonts = 0
 let g:airline#theme = 'badwolf'
 
+" rooter
+let g:rooter_patterns = ['Rakefile', 'Cargo.toml', '.git/']
+
 " fzf
 let g:fzf_layout = { 'down': '~20%' }
 let g:fzf_buffers_jump = 1
 
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
-  nnoremap <leader>/ :Ag<space>
+	nnoremap <leader>/ :Ag<space>
 endif
 if executable('rg')
 	set grepprg=rg\ --no-heading\ --vimgrep
 	set grepformat=%f:%l:%c:%m
-  nnoremap <leader>/ :Rg<space>
+	nnoremap <leader>/ :Rg<space>
 endif 
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
@@ -74,14 +79,15 @@ nnoremap <leader>gf :GFiles<CR>
 let g:deoplete#enable_at_startup = 2
 set hidden
 let g:LanguageClient_autoStart = 1
-let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
+let g:LanguageClient_loggingFile = expand('~/.config/nvim/logs/LanguageClient.log')
 let g:LanguageClient_loggingLevel = 'DEBUG'
-let g:LanguageClient_serverStderr = expand('~/.vim/LanguageClient.err')
+let g:LanguageClient_serverStderr = expand('~/.config/nvim/logs/LanguageClient.err')
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-		\ 'python': ['/usr/local/bin/pyls'],
-		\ 'go': ['gopls'],
-    \ }
+			\ 'rust': ['rls'],
+			\ 'python': ['/usr/local/bin/pyls'],
+			\ }
+let g:LanguageClient_selectionUI = 'fzf'
+let g:LanguageClient_settingsPath = expand('~/.config/nvim/languageclient.json')
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -94,6 +100,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_command = "goimports"
 
+" Rust
+let g:rustfmt_autosave = 1
+
 " Dart
 let dart_format_on_save = 1
 let dart_style_guide = 2
@@ -101,21 +110,21 @@ let dart_style_guide = 2
 " LSC
 let g:lsc_enable_autocomplete = v:true
 let g:lsc_server_commands = {
-	\ 'dart': 'dart_language_server',
-	\ 'go': 'go-langserver -gocodecompletion -maxparallelism 5 -mode stdio -lint-tool golint',
-	\ 'vue': 'vls',
-	\ 'javascript': 'javascript-typescript-stdio'
-	\ }
+			\ 'dart': 'dart_language_server',
+			\ 'go': 'go-langserver -gocodecompletion -maxparallelism 5 -mode stdio -lint-tool golint',
+			\ 'vue': 'vls',
+			\ 'javascript': 'javascript-typescript-stdio'
+			\ }
 let g:lsc_auto_map = {
-    \ 'GoToDefinition': '<C-]>',
-    \ 'FindReferences': 'gr',
-    \ 'NextReference': '<C-n>',
-    \ 'PreviousReference': '<C-p>',
-    \ 'FindImplementations': 'gI',
-    \ 'FindCodeActions': 'ga',
-    \ 'DocumentSymbol': 'go',
-    \ 'WorkspaceSymbol': 'gS',
-    \ 'ShowHover': 'K',
-    \ 'Completion': 'completefunc',
-    \}
+			\ 'GoToDefinition': '<C-]>',
+			\ 'FindReferences': 'gr',
+			\ 'NextReference': '<C-n>',
+			\ 'PreviousReference': '<C-p>',
+			\ 'FindImplementations': 'gI',
+			\ 'FindCodeActions': 'ga',
+			\ 'DocumentSymbol': 'go',
+			\ 'WorkspaceSymbol': 'gS',
+			\ 'ShowHover': 'K',
+			\ 'Completion': 'completefunc',
+			\}
 

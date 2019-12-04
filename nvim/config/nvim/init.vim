@@ -78,7 +78,7 @@ imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 map <silent> <F6> :update<CR>:e ++ff=dos<CR>:setlocal ff=unix<CR>
 
 " find merge conflict markers
-nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+nmap <silent> <leader>gc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 "Map the arrow keys to be based on display lines, not physical lines
 noremap <Down> gj
@@ -174,12 +174,13 @@ endif
 :tnoremap <C-k> <C-\><C-n><C-w>k
 :tnoremap <C-l> <C-\><C-n><C-w>l
 
-if has('nvim')
-    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
-    set inccommand=nosplit
-    noremap <C-q> :confirm qall<CR>
-end
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+set inccommand=nosplit
+noremap <C-q> :confirm qall<CR>
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
+
+" Disable ex mode
+:map Q <Nop>
 
