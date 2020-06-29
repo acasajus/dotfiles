@@ -22,11 +22,7 @@ Plug 'andymass/vim-matchup'
 Plug 'airblade/vim-gitgutter'
 
 " Semantic language
-Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
-			\ 'do': 'bash install.sh',
-			\ }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -39,8 +35,6 @@ Plug 'othree/html5.vim'
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'fatih/vim-hclfmt'
-Plug 'b4b4r07/vim-hcl'
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
@@ -75,24 +69,6 @@ nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>gf :GFiles<CR>
 
-" Semantic
-let g:deoplete#enable_at_startup = 2
-set hidden
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_loggingFile = expand('~/.config/nvim/logs/LanguageClient.log')
-let g:LanguageClient_loggingLevel = 'DEBUG'
-let g:LanguageClient_serverStderr = expand('~/.config/nvim/logs/LanguageClient.err')
-let g:LanguageClient_serverCommands = {
-			\ 'rust': ['rls'],
-			\ 'python': ['/usr/local/bin/pyls'],
-			\ }
-let g:LanguageClient_selectionUI = 'fzf'
-let g:LanguageClient_settingsPath = expand('~/.config/nvim/languageclient.json')
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 " Go
 let g:go_disable_autoinstall = 1
 let g:go_highlight_functions = 1
@@ -107,24 +83,68 @@ let g:rustfmt_autosave = 1
 let dart_format_on_save = 1
 let dart_style_guide = 2
 
-" LSC
-let g:lsc_enable_autocomplete = v:true
-let g:lsc_server_commands = {
-			\ 'dart': 'dart_language_server',
-			\ 'go': 'go-langserver -gocodecompletion -maxparallelism 5 -mode stdio -lint-tool golint',
-			\ 'vue': 'vls',
-			\ 'javascript': 'javascript-typescript-stdio'
-			\ }
-let g:lsc_auto_map = {
-			\ 'GoToDefinition': '<C-]>',
-			\ 'FindReferences': 'gr',
-			\ 'NextReference': '<C-n>',
-			\ 'PreviousReference': '<C-p>',
-			\ 'FindImplementations': 'gI',
-			\ 'FindCodeActions': 'ga',
-			\ 'DocumentSymbol': 'go',
-			\ 'WorkspaceSymbol': 'gS',
-			\ 'ShowHover': 'K',
-			\ 'Completion': 'completefunc',
-			\}
+" Semantic
+
+" Use <c-.> to trigger completion.
+inoremap <silent><expr> <c-.> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for selections ranges.
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+
+" Implement methods for trait
+nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
+
+" Show actions available at this location
+nnoremap <silent> <space>a  :CocAction<cr>
+
 

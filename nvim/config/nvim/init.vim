@@ -68,17 +68,17 @@ endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
 " Bind F1 to show 'invisible' chars
-map <silent> <F1> :set invlist<CR>:set list?<CR>
+map <silent> <leader>in :set invlist<CR>:set list?<CR>
 " Bind F3 to show line numbers
-map <silent> <F3> :set invnumber<CR>:set number?<CR>
+map <silent> <leader>nu :set invnumber<CR>:set number?<CR>
 " Bind F4 to toggle Paste mode
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+nmap <silent> <leader>pa :set invpaste<CR>:set paste?<CR>
+imap <silent> <leader>pa <ESC>:set invpaste<CR>:set paste?<CR>
 " Make a dos2unix
-map <silent> <F6> :update<CR>:e ++ff=dos<CR>:setlocal ff=unix<CR>
+map <silent> <leader>d2u :update<CR>:e ++ff=dos<CR>:setlocal ff=unix<CR>
 
 " find merge conflict markers
-nmap <silent> <leader>gc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 "Map the arrow keys to be based on display lines, not physical lines
 noremap <Down> gj
@@ -168,7 +168,8 @@ if has("multi_byte")
 endif
 
 " Neovim terminal
-:tnoremap <Esc> <C-\><C-n>
+au TermOpen * tnoremap <Esc> <c-\><c-n>
+au FileType fzf tunmap <Esc>
 :tnoremap <C-h> <C-\><C-n><C-w>h
 :tnoremap <C-j> <C-\><C-n><C-w>j
 :tnoremap <C-k> <C-\><C-n><C-w>k
