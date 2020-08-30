@@ -1,6 +1,8 @@
 [user]
 	name = Adria Casajus
 	email = adriancasajus@gmail.com
+[submodule]
+	recurse = true
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -36,6 +38,9 @@
 	shortnocolor = log --pretty=format:\"%h %cr %cn %s\"	
 	graph = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
 
+	#show
+	sf =  show --pretty="" --name-only
+
 	#remotes
 	upr = remote update --prune
 
@@ -53,6 +58,7 @@
 
 [branch]
 	autosetupmerge = true
+	autosetuprebase = always
 
 [diff]
 	tool = meld
@@ -63,31 +69,21 @@
 
 [push]
 	default = simple
+
 [core]
 	editor = nvim
 	pager = less -F -X
 	excludesfile = /Users/acasajus/.gitignore_global
+
 [color]
 	ui = true
 
-#shortcuts for remotes
-[url "git@github.com:"]
-	insteadOf = gh:
-[url "git@bitbucket.org:"]
-	insteadOf = bb:
-
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 	trustExitCode = true
-
-[mergetool "p4"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-	trustExitCode = false
-[difftool "p4"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
 
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
@@ -102,3 +98,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[rerere]
+	enabled = true
+
+[url "ssh://git@gitlab.protontech.ch/"]
+	insteadOf = https://gitlab.protontech.ch/
+[commit]
+	template = /Users/acasajus/.stCommitMsg

@@ -1,8 +1,6 @@
 
-
-
 function __git-branch-name {
-	echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+  git rev-parse --abbrev-ref HEAD
 }
 
 function __git-dirty {

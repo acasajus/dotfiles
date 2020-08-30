@@ -10,6 +10,12 @@ set -o noclobber
 # Update window size after every command
 shopt -s checkwinsize
 
+#Do not escape $vars on tab and expand dirs
+shopt -s direxpand
+
+#Dont skip files on completion
+shopt -u progcomp
+
 ## SMARTER TAB-COMPLETION (Readline bindings) ##
 
 # Perform file completion in a case insensitive fashion
@@ -78,10 +84,12 @@ if ! shopt -oq posix; then
   fi
 fi
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  if [ -f /usr/local/bin/brew -a -f $(brew --prefix)/etc/bash_completion ]; then
-   source $(brew --prefix)/etc/bash_completion
+	[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source /usr/local/etc/profile.d/bash_completion.sh
+  if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+    . /usr/local/share/bash-completion/bash_completion
   fi
 fi
+
 
 #Sanitize PATH
 newPATH=""

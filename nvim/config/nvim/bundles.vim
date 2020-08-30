@@ -45,6 +45,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 let g:airline#extensions#quickfix#location_text = 'Location'
+let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#powerline#fonts = 0
 let g:airline#theme = 'badwolf'
@@ -146,5 +147,4 @@ nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement mi
 
 " Show actions available at this location
 nnoremap <silent> <space>a  :CocAction<cr>
-
 
