@@ -52,10 +52,10 @@ if filereadable(expand("~/.vimrc.local"))
 endif
 
 " Remap ctrl + hjkl to move between panes
-map <silent> <c-k> <C-W>k  
-map <silent> <c-j> <C-W>j
-map <silent> <c-h> <C-W>h
-map <silent> <c-l> <C-W>l 
+nnoremap <silent> <A-k> <C-W>k  
+nnoremap <silent> <A-j> <C-W>j
+nnoremap <silent> <A-h> <C-W>h
+nnoremap <silent> <A-l> <C-W>l 
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()

@@ -37,12 +37,16 @@
 	changelog = log --pretty=format:\" * %s\"
 	shortnocolor = log --pretty=format:\"%h %cr %cn %s\"	
 	graph = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+	gs = log --graph --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
 
 	#show
 	sf =  show --pretty="" --name-only
 
 	#remotes
 	upr = remote update --prune
+
+	#Show branches by date
+	brd = for-each-ref --sort=-committerdate refs/heads/ --format='%(if)%(HEAD)%(then)* %(else)  %(end)%(refname:short)' refs/heads/
 
 [format]
 	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
