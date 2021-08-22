@@ -46,7 +46,11 @@
 	upr = remote update --prune
 
 	#Show branches by date
-	brd = for-each-ref --sort=-committerdate refs/heads/ --format='%(if)%(HEAD)%(then)* %(else)  %(end)%(refname:short)' refs/heads/
+	brd = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(if)%(HEAD)%(then)* %(else)  %(end)%(color:green)%(refname:short)\t%(color:blue)%(subject)' refs/heads/
+	brdo = for-each-ref --sort=-committerdate refs/heads/ --format='%(if)%(HEAD)%(then)* %(else)  %(end)%(refname:short)' refs/heads/
+
+	#push
+	pushf = push --force-with-lease
 
 [format]
 	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset

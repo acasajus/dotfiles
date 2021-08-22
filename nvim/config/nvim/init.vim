@@ -8,7 +8,6 @@ set noeol                 " Don't add empty newlines at end of files
 set background=dark       " Dark bg
 set hlsearch              " Highlight searches
 set incsearch             " Highlight dynamically as pattern is typed
-set laststatus=2          " Always show status line
 set mouse=a               " Enable mouse in all modes
 set noerrorbells          " Disable error bells
 set nostartofline         " Don’t reset cursor to start of line when moving around.
@@ -18,12 +17,13 @@ set showmode              " Show the current mode
 set title                 " Show the filename in the window titlebar
 set showcmd               " Show the (partial) command as it’s being typed
 syntax on                 " Enable syntax highlighting
-let mapleader="\<Space>"         " Change the mapleader
+let mapleader="\<Space>"  " Change the mapleader
 set textwidth=140         " Max textwidth
 set backspace=2           " Set backspace work like in most other apps
 set cursorline            " Highlight the current line
 set t_ut=                 " Disable Background color erase
 set wildmode=longest,list " Complete longest common string, then list alternatives.
+set shell=/bin/bash       " Set bash as shell
 
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
@@ -57,7 +57,7 @@ nnoremap <silent> <A-j> <C-W>j
 nnoremap <silent> <A-h> <C-W>h
 nnoremap <silent> <A-l> <C-W>l 
 
-" Strip trailing whitespace (,ss)
+" Strip trailing whitespace (<leader>ss)
 function! StripWhitespace()
 	let save_cursor = getpos(".")
 	let old_query = getreg('/')
@@ -67,11 +67,11 @@ function! StripWhitespace()
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
-" Bind F1 to show 'invisible' chars
+" Show 'invisible' chars
 map <silent> <leader>in :set invlist<CR>:set list?<CR>
-" Bind F3 to show line numbers
+" Show/hide line numbers
 map <silent> <leader>nu :set invnumber<CR>:set number?<CR>
-" Bind F4 to toggle Paste mode
+" Paste mode
 nmap <silent> <leader>pa :set invpaste<CR>:set paste?<CR>
 imap <silent> <leader>pa <ESC>:set invpaste<CR>:set paste?<CR>
 " Make a dos2unix
@@ -98,9 +98,6 @@ cmap w!! %!sudo tee > /dev/null %
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 "Clean vim draw/artifacts
 au BufWritePost * :silent! :syntax sync fromstart<cr>:redraw!<cr>
-
-"Set the badwolf colorsheme
-colorscheme badwolf
 
 " Github install
 let $GIT_SSL_NO_VERIFY = 'true'
@@ -134,18 +131,8 @@ endif
 " Backspace madness
 imap  <Left><Del>
 
-" Indenting
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set textwidth=140
-
 " Long lines prob
-set synmaxcol=250
-" Got a fast terminal
-set ttyfast 
-" Not supported by neovim
-"set ttyscroll=3
+set synmaxcol=2000
 set lazyredraw " Avoid scrolling problems
 
 " Filetype enable
@@ -184,4 +171,3 @@ nnoremap <leader><leader> <c-^>
 
 " Disable ex mode
 :map Q <Nop>
-

@@ -9,53 +9,89 @@ if system('uname -o') =~ '^GNU/'
 	let g:make = 'make'
 endif
 
-
 " Vim enhancements
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
+Plug 'phaazon/hop.nvim'
 
 " GUI
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'hoob3rt/lualine.nvim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'machakann/vim-highlightedyank'
-Plug 'andymass/vim-matchup'
 Plug 'airblade/vim-gitgutter'
+Plug 'navarasu/onedark.nvim'
 
 " Semantic language
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " Language support
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'fatih/vim-go'
 Plug 'othree/html5.vim'
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'rust-lang/rust.vim'
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'} 
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
+lua << EOF
+require('onedark').setup()
 
-" Airline
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
-let g:airline#extensions#quickfix#location_text = 'Location'
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#powerline#fonts = 0
-let g:airline#theme = 'badwolf'
+require('hop').setup()
+vim.api.nvim_set_keymap('n', '<leader>hw', "<cmd>lua require'hop'.hint_words()<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>hl', "<cmd>:HopLine<cr>", {})
+
+require('lualine').setup{
+options = {theme = 'onedark'}
+}
+
+require('telescope').setup{
+defaults = {
+	vimgrep_arguments = {
+		'rg',
+		'--color=never',
+		'--no-heading',
+		'--with-filename',
+		'--line-number',
+		'--column',
+		'--smart-case'
+		},
+	}
+}
+vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require'telescope.builtin'.find_files{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require'telescope.builtin'.buffers{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>tb', "<cmd>lua require'telescope.builtin'.file_browser{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>tg', "<cmd>lua require'telescope.builtin'.live_grep{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>ld', "<cmd>lua require'telescope.builtin'.lsp_definitions{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>li', "<cmd>lua require'telescope.builtin'.lsp_implementations{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>la', "<cmd>lua require'telescope.builtin'.lsp_code_actions{}<cr>", {})
+vim.api.nvim_set_keymap('n', '<leader>lr', "<cmd>lua require'telescope.builtin'.lsp_references{}<cr>", {})
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+
+EOF
 
 " rooter
-let g:rooter_patterns = ['Rakefile', 'Cargo.toml', '.git/']
-
-" fzf
-let g:fzf_layout = { 'down': '~20%' }
-let g:fzf_buffers_jump = 1
+let g:rooter_patterns = ['Rakefile', 'Cargo.toml', '.git/', 'composer.json']
 
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
@@ -66,9 +102,6 @@ if executable('rg')
 	set grepformat=%f:%l:%c:%m
 	nnoremap <leader>/ :Rg<space>
 endif 
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>gf :GFiles<CR>
 
 " Go
 let g:go_disable_autoinstall = 1
@@ -80,71 +113,82 @@ let g:go_fmt_command = "goimports"
 " Rust
 let g:rustfmt_autosave = 1
 
-" Dart
-let dart_format_on_save = 1
-let dart_style_guide = 2
-
 " Semantic
 
-" Use <c-.> to trigger completion.
-inoremap <silent><expr> <c-.> coc#refresh()
+lua << EOF
+require'lspconfig'.rust_analyzer.setup{}
+require'lspconfig'.gopls.setup{}
+require'lspconfig'.phpactor.setup{}
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+local nvim_lsp = require('lspconfig')
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+-- Use an on_attach function to only map the following keys 
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  
+	--Enable completion triggered by <c-x><c-o>
+  	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+	-- Mappings.
+	local opts = { noremap=true, silent=true }
 
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+	buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+	buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+	buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+	buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+	buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+	buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+	buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+	buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+	buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+	-- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	
+	-- Enable complete
+	require'completion'.on_attach('client')
+end
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "rust_analyzer", "tsserver", "gopls", "phpactor", "jsonls"}
+for _, lsp in ipairs(servers) do
+	nvim_lsp[lsp].setup { 
+		on_attach = on_attach,
+		settings =  {
+			["rust-analyzer"] = {
+				assist = {
+					importGranularity = "module",
+					importPrefix = "by_self",
+				},
+				cargo = {
+					loadOutDirsFromCheck = true
+				},
+				procMacro = {
+					enable = true
+				},
+			}
+		}
+	}
+end
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+EOF
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Introduce function text object
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
-" Use <TAB> for selections ranges.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-
-" Implement methods for trait
-nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
-
-" Show actions available at this location
-nnoremap <silent> <space>a  :CocAction<cr>
-
+" Avoid showing message extra message when using completion
+set shortmess+=c
