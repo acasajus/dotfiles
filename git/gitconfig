@@ -98,9 +98,6 @@
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
 
-[include]
-  path = .gitconfig.local
-
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -110,7 +107,8 @@
 [rerere]
 	enabled = true
 
-[url "ssh://git@gitlab.protontech.ch/"]
-	insteadOf = https://gitlab.protontech.ch/
-[commit]
-	template = /Users/acasajus/.stCommitMsg
+[include]
+  path = .gitconfig.local
+
+[includeIf "gitdir:~/Dev/work/"]
+  path = ~/Dev/work/.gitconfig.work
