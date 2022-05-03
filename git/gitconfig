@@ -108,7 +108,11 @@
 	enabled = true
 
 [include]
-  path = .gitconfig.local
+	path = .gitconfig.local
+
+[init]
+	defaultBranch = main
 
 [includeIf "gitdir:~/Dev/work/"]
-  path = ~/Dev/work/.gitconfig
+	path = ~/Dev/work/.gitconfig
+

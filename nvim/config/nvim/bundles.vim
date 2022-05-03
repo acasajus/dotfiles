@@ -33,7 +33,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
-Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'} 
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -93,7 +92,8 @@ additional_vim_regex_highlighting = false,
 
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
-require'lspconfig'.phpactor.setup{}
+require'lspconfig'.psalm.setup{}
+require'lspconfig'.jedi_language_server.setup{}
 
 local nvim_lsp = require('lspconfig')
 
@@ -154,7 +154,7 @@ nvim_lsp["rust_analyzer"].setup {
 	},
 	capabilities = lsp_status.capabilities
 }
-local servers = { "tsserver", "gopls", "phpactor", "jsonls"}
+local servers = { "tsserver", "gopls", "psalm", "jsonls", "jedi_language_server"}
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
 		on_attach = on_attach,
@@ -167,6 +167,8 @@ EOF
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+let g:completion_enable_fuzzy_match = 1
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
