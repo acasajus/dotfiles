@@ -29,10 +29,3 @@ done
 [[ -f $HOME/.bash.local ]] && source $HOME/.bash.local
 
 unset MASH_HOME
-
-
-alias gam="/Users/acasajus/bin/gam/gam"
-
-. "$HOME/.cargo/env"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

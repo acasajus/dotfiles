@@ -82,7 +82,7 @@
 	editor = nvim
 	pager = less -F -X
 	excludesfile = /Users/acasajus/.gitignore_global
-
+	fsmonitor = true
 [color]
 	ui = true
 

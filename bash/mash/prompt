@@ -83,14 +83,22 @@ function _pmt {
 	echo -ne "$(_pmt_userhost) $(_pmt_where)$(_pmt_git)$(_pmt_rvm) ${out} "
 }
 
-#Default PS1
-PS1="\u@\h \w > "
-## Change the window title of X terminals and set PS1
-case ${TERM} in
-	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-		PROMPT_COMMAND='PS1=$(_pmt);echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/\~}\007"'
-		;;
-	screen*)
-		PROMPT_COMMAND='PS1=$(_pmt);echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/\~}\033\\"'
-		;;
-esac
+if which starship > /dev/null 2>&1; then
+	function set_win_title(){
+	    echo -ne "\033]0; $(basename "$PWD") \007"
+	}
+	export starship_precmd_user_func="set_win_title"
+	eval "$(starship init bash)"
+else
+	#Default PS1
+	PS1="\u@\h \w > "
+	## Change the window title of X terminals and set PS1
+	case ${TERM} in
+		xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+			PROMPT_COMMAND='PS1=$(_pmt);echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/\~}\007"'
+			;;
+		screen*)
+			PROMPT_COMMAND='PS1=$(_pmt);echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/\~}\033\\"'
+			;;
+	esac
+fi

@@ -7,7 +7,7 @@ alias ffs='sudo !!'
 alias sshnocheck='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
 function rbvim {
-	if [ "$#" -gt "0" ]; then
+  if [ "$#" -gt "0" ]; then
     vim $(find . -name '*.rb' | grep $*)
   else
     vim $(find . -name '*.rb')
@@ -27,8 +27,27 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 if which ncdu >/dev/null 2>&1; then
-	alias du="ncdu --color dark"
+    alias du="ncdu --color dark"
 fi
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+
+
+# Simple calculator
+function calc() {
+  local result=""
+  result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')"
+  #                       └─ default (when `--mathlib` is used) is 20
+  #
+  if [[ "$result" == *.* ]]; then
+    # improve the output for decimal numbers
+    printf "$result" |
+    sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
+      -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
+      -e 's/0*$//;s/\.$//'   # remove trailing zeros
+  else
+    printf "$result"
+  fi
+  printf "\n"
+}
