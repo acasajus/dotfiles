@@ -49,6 +49,9 @@
 	brd = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(if)%(HEAD)%(then)* %(else)  %(end)%(color:green)%(refname:short)\t%(color:blue)%(subject)' refs/heads/
 	brdo = for-each-ref --sort=-committerdate refs/heads/ --format='%(if)%(HEAD)%(then)* %(else)  %(end)%(refname:short)' refs/heads/
 
+	#Show tags
+	td = for-each-ref --sort=-creatordate refs/tags/ --format='%(color:blue)%(creatordate:iso) %(color:green)%(refname:short) %(color:magenta)%(creator)' 
+
 	#push
 	pushf = push --force-with-lease
 
@@ -70,7 +73,11 @@
 
 [diff]
 	tool = meld
+	external = difft
 	mnemonicprefix = true
+
+[tag]
+	sort=creatordate
 
 [difftool]
 	prompt = false
@@ -82,7 +89,8 @@
 	editor = nvim
 	pager = less -F -X
 	excludesfile = /Users/acasajus/.gitignore_global
-	fsmonitor = true
+	#fsmonitor = true
+
 [color]
 	ui = true
 
