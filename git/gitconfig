@@ -26,7 +26,7 @@
 	#diff
 	df = diff
 	dc = diff --cached
-	last = diff HEAD^
+	last = diff HEAD^..HEAD
 	dt = difftool
 
 	#log
@@ -50,7 +50,7 @@
 	brdo = for-each-ref --sort=-committerdate refs/heads/ --format='%(if)%(HEAD)%(then)* %(else)  %(end)%(refname:short)' refs/heads/
 
 	#Show tags
-	td = for-each-ref --sort=-creatordate refs/tags/ --format='%(color:blue)%(creatordate:iso) %(color:green)%(refname:short) %(color:magenta)%(creator)' 
+	td = for-each-ref --sort=creatordate refs/tags/ --format='%(color:blue)%(creatordate:iso) %(color:green)%(refname:short) %(color:magenta)%(creator)' 
 
 	#push
 	pushf = push --force-with-lease
