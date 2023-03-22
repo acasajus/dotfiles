@@ -16,8 +16,10 @@ source ${MASH_HOME}/environ
 source ${MASH_HOME}/alias
 #Load colors
 source ${MASH_HOME}/colors
+
 #Load prompt
 source ${MASH_HOME}/prompt
+
 
 #Completion
 for comp in ${MASH_HOME}/completion/*
@@ -30,12 +32,6 @@ done
 
 unset MASH_HOME
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-#Load .bash_profile, everything happens there
-
-source $HOME/.bash_profile
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 . "$HOME/.cargo/env"
@@ -44,5 +40,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"

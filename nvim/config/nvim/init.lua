@@ -1,5 +1,3 @@
-
--- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
 
 vim.opt.number = true
@@ -16,6 +14,7 @@ vim.opt.title = true     -- Show the title in the menu bar
 vim.opt.shell = '/bin/bash' -- Force bash as shell
 vim.opt.lcs='tab:▸ ,trail:·,eol:¬,nbsp:_' -- Invisible chars
 vim.opt.termguicolors = false
+vim.opt.completeopt = 'menu,longest' -- Bash style completion
 
 
 -- ========================================================================== --
