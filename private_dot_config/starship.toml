@@ -1,0 +1,27 @@
+add_newline=false
+
+format="""
+$username\
+$hostname\
+$shlevel\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$rust\
+$golang\
+$python\
+$env_var\
+$cmd_duration\
+$jobs\
+$status\
+$character\
+
+"""
+
+[cmd_duration]
+min_time = 500
+
+[directory]
+truncation_length = 6
