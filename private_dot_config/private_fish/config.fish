@@ -18,6 +18,17 @@ if test (uname) = Darwin
     end
 end
 
+#check mise
+/home/acasajus/.local/bin/mise activate
+if test -d $HOME/.local/bin/mise
+    eval ($HOME/.local/bin/mise activate fish)
+end
+
+# Set editor
+if test -d $HOME/bin/nvim
+    export EDITOR=$HOME/bin/nvim
+end
+
 if status is-interactive
     # Initialize Starship prompt if installed
     if type -q starship
