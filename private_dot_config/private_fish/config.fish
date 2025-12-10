@@ -19,7 +19,6 @@ if test (uname) = Darwin
 end
 
 #check mise
-/home/acasajus/.local/bin/mise activate
 if test -d $HOME/.local/bin/mise
     eval ($HOME/.local/bin/mise activate fish)
 end
