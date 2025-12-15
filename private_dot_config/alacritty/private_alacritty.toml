@@ -1,6 +1,3 @@
-import = [
-  "~/.config/alacritty/catppuccin-mocha.toml"
-]
 
 [env]
 TERM = "xterm-256color"
@@ -24,8 +21,15 @@ style = "Italic"
 family = "Hack Nerd Font"
 style = "Regular"
 
-[shell]
+[general]
+import = [
+  "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+[terminal]
+
+[terminal.shell]
+program = "/usr/local/bin/fish"
 args = ["--login", "-c", "tmux attach -t alacritty || tmux new -s alacritty"]
-program = "/usr/bin/fish"
 
 
