@@ -21,7 +21,7 @@
 
 	#checkout
 	co = checkout
-	nb = checkout -b
+	cob = checkout -b
 
 	#diff
 	df = diff
@@ -50,10 +50,11 @@
 	brdo = for-each-ref --sort=-committerdate refs/heads/ --format='%(if)%(HEAD)%(then)* %(else)  %(end)%(refname:short)' refs/heads/
 
 	#Show tags
-	td = for-each-ref --sort=creatordate refs/tags/ --format='%(color:blue)%(creatordate:iso) %(color:green)%(refname:short) %(color:magenta)%(creator)' 
+	td = for-each-ref --sort=creatordate refs/tags/ --format='%(color:blue)%(creatordate:iso) %(color:green)%(refname:short) %(color:yellow)%(objectname:short) %(color:magenta)%(creator)' 
 
 	#push
 	pushf = push --force-with-lease
+  poh = push origin -u HEAD
 
 [format]
 	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
@@ -73,7 +74,7 @@
 
 [diff]
 	tool = meld
-	external = difft
+	#external = difft
 	mnemonicprefix = true
 
 [tag]
@@ -121,6 +122,9 @@
 [init]
 	defaultBranch = main
 
-[includeIf "gitdir:~/Dev/work/"]
-	path = ~/Dev/work/.gitconfig
+[includeIf "gitdir:~/Dev/proton/"]
+	path = ~/Dev/proton/.gitconfig
 
+[maintenance]
+	repo = /Users/acasajus/Dev/proton/containers_v2/webserver/repos/api
+	repo = /Users/acasajus/Dev/proton/clients
