@@ -51,7 +51,7 @@ if status is-interactive
         starship init fish | source
     end
 
-    alias vim=nvim
-    alias dc=docker compose
-    alias k=kubectl
+    alias vim nvim
+    alias dc 'docker compose'
+    alias k kubectl
 end
